@@ -4,7 +4,7 @@ import { ElMessage } from 'element-plus';
 import { userLearningApi } from '../../api/modules';
 const route = useRoute();
 const material = ref(null);
-const previewUrl = ref('');
+const preview = ref(null);
 const materialId = Number(route.params.id);
 async function load() {
     const [detailResp, previewResp] = await Promise.all([
@@ -13,7 +13,7 @@ async function load() {
         userLearningApi.access(materialId),
     ]);
     material.value = detailResp.data;
-    previewUrl.value = previewResp.data.url;
+    preview.value = previewResp.data;
 }
 async function setProgress(readStatus, completionStatus) {
     await userLearningApi.progress(materialId, { readStatus, completionStatus });
@@ -41,7 +41,7 @@ if (__VLS_ctx.material) {
     __VLS_asFunctionalElement(__VLS_intrinsicElements.p, __VLS_intrinsicElements.p)({
         ...{ class: "page-subtitle" },
     });
-    (__VLS_ctx.material.author);
+    (__VLS_ctx.material.author || '未知作者');
     (__VLS_ctx.material.fileType);
 }
 if (__VLS_ctx.material) {
@@ -51,9 +51,19 @@ if (__VLS_ctx.material) {
     __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
         ...{ class: "viewer-frame" },
     });
-    if (__VLS_ctx.previewUrl) {
+    if (__VLS_ctx.preview?.viewerType === 'iframe' && __VLS_ctx.preview.previewUrl) {
         __VLS_asFunctionalElement(__VLS_intrinsicElements.iframe)({
-            src: (__VLS_ctx.previewUrl),
+            src: (__VLS_ctx.preview.previewUrl),
+        });
+    }
+    else if (__VLS_ctx.preview?.viewerType === 'audio' && __VLS_ctx.preview.previewUrl) {
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+            ...{ class: "audio-viewer-shell" },
+        });
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.audio)({
+            src: (__VLS_ctx.preview.previewUrl),
+            controls: true,
+            ...{ class: "audio-viewer" },
         });
     }
     else {
@@ -61,10 +71,10 @@ if (__VLS_ctx.material) {
         /** @type {[typeof __VLS_components.ElEmpty, typeof __VLS_components.elEmpty, ]} */ ;
         // @ts-ignore
         const __VLS_1 = __VLS_asFunctionalComponent(__VLS_0, new __VLS_0({
-            description: "预览地址加载中",
+            description: (__VLS_ctx.preview?.fallbackMessage || (__VLS_ctx.preview?.previewStatus === 'FAILED' ? '预览生成失败，请下载查看' : '预览地址加载中')),
         }));
         const __VLS_2 = __VLS_1({
-            description: "预览地址加载中",
+            description: (__VLS_ctx.preview?.fallbackMessage || (__VLS_ctx.preview?.previewStatus === 'FAILED' ? '预览生成失败，请下载查看' : '预览地址加载中')),
         }, ...__VLS_functionalComponentArgsRest(__VLS_1));
     }
     __VLS_asFunctionalElement(__VLS_intrinsicElements.aside, __VLS_intrinsicElements.aside)({
@@ -182,6 +192,26 @@ if (__VLS_ctx.material) {
     __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
         ...{ class: "info-value" },
     });
+    (__VLS_ctx.preview?.viewerType === 'audio' ? '音频播放器' : '站内预览');
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+        ...{ class: "info-item" },
+    });
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+        ...{ class: "info-key" },
+    });
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+        ...{ class: "info-value" },
+    });
+    (__VLS_ctx.preview?.previewStatus || 'READY');
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+        ...{ class: "info-item" },
+    });
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+        ...{ class: "info-key" },
+    });
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+        ...{ class: "info-value" },
+    });
     (__VLS_ctx.material.publishStatus);
     __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
         ...{ class: "info-item" },
@@ -193,6 +223,22 @@ if (__VLS_ctx.material) {
         ...{ class: "info-value" },
     });
     (__VLS_ctx.material.summary || '暂无摘要');
+    if (__VLS_ctx.preview?.downloadUrl) {
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+            ...{ class: "info-item" },
+        });
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+            ...{ class: "info-key" },
+        });
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+            ...{ class: "info-value" },
+        });
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.a, __VLS_intrinsicElements.a)({
+            href: (__VLS_ctx.preview.downloadUrl),
+            target: "_blank",
+            rel: "noreferrer",
+        });
+    }
 }
 /** @type {__VLS_StyleScopedClasses['page-stack']} */ ;
 /** @type {__VLS_StyleScopedClasses['section-head']} */ ;
@@ -201,6 +247,8 @@ if (__VLS_ctx.material) {
 /** @type {__VLS_StyleScopedClasses['page-subtitle']} */ ;
 /** @type {__VLS_StyleScopedClasses['viewer-layout']} */ ;
 /** @type {__VLS_StyleScopedClasses['viewer-frame']} */ ;
+/** @type {__VLS_StyleScopedClasses['audio-viewer-shell']} */ ;
+/** @type {__VLS_StyleScopedClasses['audio-viewer']} */ ;
 /** @type {__VLS_StyleScopedClasses['panel-stack']} */ ;
 /** @type {__VLS_StyleScopedClasses['ui-panel']} */ ;
 /** @type {__VLS_StyleScopedClasses['section-head']} */ ;
@@ -221,12 +269,21 @@ if (__VLS_ctx.material) {
 /** @type {__VLS_StyleScopedClasses['info-item']} */ ;
 /** @type {__VLS_StyleScopedClasses['info-key']} */ ;
 /** @type {__VLS_StyleScopedClasses['info-value']} */ ;
+/** @type {__VLS_StyleScopedClasses['info-item']} */ ;
+/** @type {__VLS_StyleScopedClasses['info-key']} */ ;
+/** @type {__VLS_StyleScopedClasses['info-value']} */ ;
+/** @type {__VLS_StyleScopedClasses['info-item']} */ ;
+/** @type {__VLS_StyleScopedClasses['info-key']} */ ;
+/** @type {__VLS_StyleScopedClasses['info-value']} */ ;
+/** @type {__VLS_StyleScopedClasses['info-item']} */ ;
+/** @type {__VLS_StyleScopedClasses['info-key']} */ ;
+/** @type {__VLS_StyleScopedClasses['info-value']} */ ;
 var __VLS_dollars;
 const __VLS_self = (await import('vue')).defineComponent({
     setup() {
         return {
             material: material,
-            previewUrl: previewUrl,
+            preview: preview,
             setProgress: setProgress,
         };
     },

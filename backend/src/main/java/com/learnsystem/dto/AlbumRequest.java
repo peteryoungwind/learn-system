@@ -11,6 +11,7 @@ public class AlbumRequest {
     @NotBlank(message = "专辑名称不能为空")
     private String name;
     private String description;
+    private String coverUrl;
     private Integer sortOrder;
     @NotBlank(message = "状态不能为空")
     private String status;

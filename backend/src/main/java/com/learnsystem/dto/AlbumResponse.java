@@ -10,6 +10,7 @@ public class AlbumResponse {
     private Long categoryId;
     private String name;
     private String description;
+    private String coverUrl;
     private Integer sortOrder;
     private String status;
 }

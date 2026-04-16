@@ -27,6 +27,7 @@
           <router-link class="nav-pill" :class="{ 'is-active': route.path.startsWith('/admin/users') }" to="/admin/users">用户管理</router-link>
           <router-link class="nav-pill" :class="{ 'is-active': route.path.startsWith('/admin/categories') || route.path.startsWith('/admin/albums') }" to="/admin/categories">分类体系</router-link>
           <router-link class="nav-pill" :class="{ 'is-active': route.path.startsWith('/admin/materials') }" to="/admin/materials">资料管理</router-link>
+          <router-link class="nav-pill" :class="{ 'is-active': route.path.startsWith('/admin/storage') }" to="/admin/storage">存储配置</router-link>
           <router-link class="nav-pill" :class="{ 'is-active': route.path.startsWith('/admin/imports') }" to="/admin/imports">导入任务</router-link>
         </nav>
       </section>

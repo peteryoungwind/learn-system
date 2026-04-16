@@ -3,7 +3,7 @@
     <section class="section-head">
       <p class="eyebrow">Materials</p>
       <h1 class="page-title">资料管理</h1>
-      <p class="page-subtitle">管理资料元数据、归属分类和发布状态。</p>
+      <p class="page-subtitle">资料层面只维护业务元数据，文件路径与类型由上传和导入流程决定。</p>
     </section>
 
     <section class="ui-panel">
@@ -16,8 +16,10 @@
           <el-table-column prop="title" label="标题" />
           <el-table-column prop="author" label="作者" />
           <el-table-column prop="fileType" label="类型" />
+          <el-table-column prop="objectKey" label="OSS路径" min-width="240" />
+          <el-table-column prop="previewStatus" label="预览状态" />
           <el-table-column prop="publishStatus" label="发布状态" />
-          <el-table-column label="操作">
+          <el-table-column label="操作" width="160">
             <template #default="scope">
               <el-button text @click="openEdit(scope.row)">编辑</el-button>
               <el-button text @click="remove(scope.row.id)">删除</el-button>
@@ -31,11 +33,17 @@
       <el-form :model="form" label-width="100px">
         <el-form-item label="标题"><el-input v-model="form.title" /></el-form-item>
         <el-form-item label="作者"><el-input v-model="form.author" /></el-form-item>
-        <el-form-item label="文件类型"><el-input v-model="form.fileType" placeholder="PDF / AUDIO / VIDEO / HTML" /></el-form-item>
-        <el-form-item label="存储提供商"><el-select v-model="form.storageProvider"><el-option label="OSS" value="OSS" /><el-option label="QINIU" value="QINIU" /></el-select></el-form-item>
-        <el-form-item label="Object Key"><el-input v-model="form.objectKey" /></el-form-item>
+        <el-form-item label="上传文件">
+          <el-upload v-if="!editingId" :auto-upload="false" :show-file-list="false" @change="handleUpload">
+            <el-button type="primary">选择资料文件</el-button>
+          </el-upload>
+          <span v-else class="badge-neutral">编辑时不更换文件</span>
+        </el-form-item>
+        <el-form-item label="文件类型"><el-input v-model="form.fileType" disabled /></el-form-item>
+        <el-form-item label="Object Key"><el-input v-model="form.objectKey" disabled /></el-form-item>
         <el-form-item label="分类"><el-select v-model="form.categoryId"><el-option v-for="item in categories" :key="item.id" :label="item.name" :value="item.id" /></el-select></el-form-item>
         <el-form-item label="专辑"><el-select v-model="form.albumId" clearable><el-option v-for="item in albums" :key="item.id" :label="item.name" :value="item.id" /></el-select></el-form-item>
+        <el-form-item label="封面"><ImageUploadField v-model="form.coverUrl" /></el-form-item>
         <el-form-item label="摘要"><el-input v-model="form.summary" type="textarea" /></el-form-item>
         <el-form-item label="发布状态"><el-select v-model="form.publishStatus"><el-option label="草稿" value="DRAFT" /><el-option label="已发布" value="PUBLISHED" /><el-option label="停用" value="DISABLED" /></el-select></el-form-item>
       </el-form>
@@ -50,8 +58,9 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
-import { adminAlbumApi, adminCategoryApi, adminMaterialApi } from '../../api/modules'
+import { adminAlbumApi, adminCategoryApi, adminMaterialApi, adminUploadApi } from '../../api/modules'
 import type { Album, Category, Material } from '../../types'
+import ImageUploadField from '../../components/upload/ImageUploadField.vue'
 
 const materials = ref<Material[]>([])
 const categories = ref<Category[]>([])
@@ -59,21 +68,9 @@ const albums = ref<Album[]>([])
 const visible = ref(false)
 const editingId = ref<number | null>(null)
 const form = reactive<any>({
-  title: '',
-  author: '',
-  fileType: 'PDF',
-  storageProvider: 'OSS',
-  objectKey: '',
-  categoryId: undefined,
-  albumId: undefined,
-  subtitle: '',
-  summary: '',
-  coverUrl: '',
-  fileSize: undefined,
-  tags: '',
-  sortOrder: 0,
-  remark: '',
-  publishStatus: 'DRAFT',
+  title: '', author: '', fileType: '', objectKey: '', originalFilename: '', mimeType: '', previewObjectKey: '', previewStatus: '',
+  categoryId: undefined, albumId: undefined, subtitle: '', summary: '', coverUrl: '', fileSize: undefined, tags: '', sortOrder: 0,
+  remark: '', publishStatus: 'DRAFT',
 })
 
 async function load() {
@@ -90,8 +87,8 @@ async function load() {
 function openCreate() {
   editingId.value = null
   Object.assign(form, {
-    title: '', author: '', fileType: 'PDF', storageProvider: 'OSS', objectKey: '', categoryId: undefined,
-    albumId: undefined, subtitle: '', summary: '', coverUrl: '', fileSize: undefined, tags: '', sortOrder: 0,
+    title: '', author: '', fileType: '', objectKey: '', originalFilename: '', mimeType: '', previewObjectKey: '', previewStatus: '',
+    categoryId: undefined, albumId: undefined, subtitle: '', summary: '', coverUrl: '', fileSize: undefined, tags: '', sortOrder: 0,
     remark: '', publishStatus: 'DRAFT',
   })
   visible.value = true
@@ -103,7 +100,29 @@ function openEdit(material: Material) {
   visible.value = true
 }
 
+async function handleUpload(uploadFile: any) {
+  const raw = uploadFile.raw as File | undefined
+  if (!raw) return
+  const formData = new FormData()
+  formData.append('file', raw)
+  const response = await adminUploadApi.material(formData)
+  Object.assign(form, {
+    objectKey: response.data.objectKey,
+    fileType: response.data.fileType,
+    originalFilename: response.data.originalFilename,
+    previewObjectKey: response.data.previewObjectKey,
+    previewStatus: response.data.previewStatus,
+    fileSize: response.data.fileSize,
+    title: response.data.originalFilename?.replace(/\.[^.]+$/, '') || form.title,
+  })
+  ElMessage.success('文件上传成功')
+}
+
 async function submit() {
+  if (!editingId.value && !form.objectKey) {
+    ElMessage.warning('请先上传资料文件')
+    return
+  }
   if (editingId.value) {
     await adminMaterialApi.update(editingId.value, form)
   } else {

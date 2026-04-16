@@ -22,6 +22,20 @@ export const adminAlbumApi = {
   remove: (id: number) => api.delete(`/api/admin/albums/${id}`),
 }
 
+export const adminStorageApi = {
+  get: () => api.get('/api/admin/storage-config'),
+  update: (payload: unknown) => api.put('/api/admin/storage-config', payload),
+}
+
+export const adminFileTypeApi = {
+  list: () => api.get('/api/admin/file-types'),
+}
+
+export const adminUploadApi = {
+  image: (formData: FormData) => api.post('/api/admin/uploads/image', formData, { headers: { 'Content-Type': 'multipart/form-data' } }),
+  material: (formData: FormData) => api.post('/api/admin/uploads/material', formData, { headers: { 'Content-Type': 'multipart/form-data' } }),
+}
+
 export const adminMaterialApi = {
   list: () => api.get('/api/admin/materials'),
   create: (payload: unknown) => api.post('/api/admin/materials', payload),
@@ -31,6 +45,8 @@ export const adminMaterialApi = {
 
 export const adminImportApi = {
   list: () => api.get('/api/admin/import-tasks'),
+  create: (formData: FormData) => api.post('/api/admin/import-tasks', formData, { headers: { 'Content-Type': 'multipart/form-data' } }),
+  items: (id: number) => api.get(`/api/admin/import-tasks/${id}/items`),
 }
 
 export const userLearningApi = {

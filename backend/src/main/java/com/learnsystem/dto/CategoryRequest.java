@@ -10,6 +10,7 @@ public class CategoryRequest {
     @NotBlank(message = "分类编码不能为空")
     private String code;
     private String description;
+    private String coverUrl;
     private Integer sortOrder;
     @NotBlank(message = "状态不能为空")
     private String status;

@@ -12,10 +12,11 @@ public class MaterialRequest {
     private String author;
     @NotBlank(message = "文件类型不能为空")
     private String fileType;
-    @NotBlank(message = "存储提供商不能为空")
-    private String storageProvider;
-    @NotBlank(message = "objectKey不能为空")
     private String objectKey;
+    private String originalFilename;
+    private String mimeType;
+    private String previewObjectKey;
+    private String previewStatus;
     @NotNull(message = "分类不能为空")
     private Long categoryId;
     private Long albumId;

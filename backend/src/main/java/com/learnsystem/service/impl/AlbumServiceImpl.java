@@ -40,6 +40,11 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public List<AlbumResponse> listAuthorized(Long userId, Long categoryId) {
+        return listUserVisible(userId, categoryId);
+    }
+
+    @Override
+    public List<AlbumResponse> listUserVisible(Long userId, Long categoryId) {
         List<Long> categoryIds = permissionMapper.selectList(new LambdaQueryWrapper<UserCategoryPermissionEntity>()
                         .eq(UserCategoryPermissionEntity::getUserId, userId))
                 .stream().map(UserCategoryPermissionEntity::getCategoryId).toList();
@@ -91,6 +96,7 @@ public class AlbumServiceImpl implements AlbumService {
         entity.setCategoryId(request.getCategoryId());
         entity.setName(request.getName());
         entity.setDescription(request.getDescription());
+        entity.setCoverUrl(request.getCoverUrl());
         entity.setSortOrder(request.getSortOrder() == null ? 0 : request.getSortOrder());
         entity.setStatus(request.getStatus());
     }
@@ -130,6 +136,7 @@ public class AlbumServiceImpl implements AlbumService {
                 .categoryId(entity.getCategoryId())
                 .name(entity.getName())
                 .description(entity.getDescription())
+                .coverUrl(entity.getCoverUrl())
                 .sortOrder(entity.getSortOrder())
                 .status(entity.getStatus())
                 .build();

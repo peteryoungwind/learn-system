@@ -10,8 +10,9 @@ export interface UserProfile {
 export interface Category {
   id: number
   name: string
-  code: string
+  code?: string
   description?: string
+  coverUrl?: string
   sortOrder: number
   status: string
 }
@@ -21,6 +22,7 @@ export interface Album {
   categoryId: number
   name: string
   description?: string
+  coverUrl?: string
   sortOrder: number
   status: string
 }
@@ -36,7 +38,24 @@ export interface ImportTask {
   sourceProvider?: string
   sourceBucket?: string
   sourcePrefix?: string
+  categoryId?: number
+  albumId?: number
+  taskName?: string
   createdBy: number
+  createdAt: string
+  updatedAt?: string
+}
+
+export interface ImportTaskItem {
+  id: number
+  taskId: number
+  originalFilename: string
+  fileType?: string
+  fileSize?: number
+  storagePath?: string
+  status: string
+  errorMessage?: string
+  materialId?: number
   createdAt: string
   updatedAt?: string
 }
@@ -48,6 +67,10 @@ export interface Material {
   fileType: string
   storageProvider: string
   objectKey: string
+  originalFilename?: string
+  mimeType?: string
+  previewObjectKey?: string
+  previewStatus?: string
   categoryId: number
   albumId?: number | null
   subtitle?: string
@@ -60,4 +83,38 @@ export interface Material {
   publishStatus: string
   publishTime?: string
   ingestTime?: string
+}
+
+export interface StorageConfig {
+  id?: number
+  provider: string
+  endpoint: string
+  bucket: string
+  region?: string
+  accessKeyId: string
+  accessKeySecret: string
+  domain?: string
+  basePath?: string
+  status: string
+  isDefault?: boolean
+}
+
+export interface FileTypePreset {
+  id: number
+  code: string
+  name: string
+  extensions: string
+  mimeTypes?: string
+  previewMode: string
+  enabled: boolean
+  sortOrder: number
+}
+
+export interface MaterialPreview {
+  viewerType: 'iframe' | 'audio'
+  previewUrl?: string
+  downloadUrl?: string
+  onlineSupported: boolean
+  fallbackMessage?: string
+  previewStatus?: string
 }

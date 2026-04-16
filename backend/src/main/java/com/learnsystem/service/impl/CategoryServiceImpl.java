@@ -34,22 +34,17 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryResponse> listAll() {
         return categoryMapper.selectList(new LambdaQueryWrapper<CategoryEntity>().orderByAsc(CategoryEntity::getSortOrder, CategoryEntity::getId))
-                .stream().map(this::toResponse).toList();
+                .stream().map(this::toAdminResponse).toList();
     }
 
     @Override
     public List<CategoryResponse> listAuthorized(Long userId) {
-        List<Long> categoryIds = permissionMapper.selectList(new LambdaQueryWrapper<UserCategoryPermissionEntity>()
-                        .eq(UserCategoryPermissionEntity::getUserId, userId))
-                .stream().map(UserCategoryPermissionEntity::getCategoryId).toList();
-        if (categoryIds.isEmpty()) {
-            return List.of();
-        }
-        return categoryMapper.selectList(new LambdaQueryWrapper<CategoryEntity>()
-                        .in(CategoryEntity::getId, categoryIds)
-                        .eq(CategoryEntity::getStatus, "ACTIVE")
-                        .orderByAsc(CategoryEntity::getSortOrder, CategoryEntity::getId))
-                .stream().map(this::toResponse).toList();
+        return listAuthorizedEntities(userId).stream().map(this::toAdminResponse).toList();
+    }
+
+    @Override
+    public List<CategoryResponse> listUserVisible(Long userId) {
+        return listAuthorizedEntities(userId).stream().map(this::toUserResponse).toList();
     }
 
     @Override
@@ -58,7 +53,7 @@ public class CategoryServiceImpl implements CategoryService {
         CategoryEntity entity = new CategoryEntity();
         fillEntity(entity, request);
         categoryMapper.insert(entity);
-        return toResponse(entity);
+        return toAdminResponse(entity);
     }
 
     @Override
@@ -67,7 +62,7 @@ public class CategoryServiceImpl implements CategoryService {
         checkCodeUnique(id, request.getCode());
         fillEntity(entity, request);
         categoryMapper.updateById(entity);
-        return toResponse(entity);
+        return toAdminResponse(entity);
     }
 
     @Override
@@ -84,10 +79,24 @@ public class CategoryServiceImpl implements CategoryService {
         categoryMapper.deleteById(entity.getId());
     }
 
+    private List<CategoryEntity> listAuthorizedEntities(Long userId) {
+        List<Long> categoryIds = permissionMapper.selectList(new LambdaQueryWrapper<UserCategoryPermissionEntity>()
+                        .eq(UserCategoryPermissionEntity::getUserId, userId))
+                .stream().map(UserCategoryPermissionEntity::getCategoryId).toList();
+        if (categoryIds.isEmpty()) {
+            return List.of();
+        }
+        return categoryMapper.selectList(new LambdaQueryWrapper<CategoryEntity>()
+                .in(CategoryEntity::getId, categoryIds)
+                .eq(CategoryEntity::getStatus, "ACTIVE")
+                .orderByAsc(CategoryEntity::getSortOrder, CategoryEntity::getId));
+    }
+
     private void fillEntity(CategoryEntity entity, CategoryRequest request) {
         entity.setName(request.getName());
         entity.setCode(request.getCode());
         entity.setDescription(request.getDescription());
+        entity.setCoverUrl(request.getCoverUrl());
         entity.setSortOrder(request.getSortOrder() == null ? 0 : request.getSortOrder());
         entity.setStatus(request.getStatus());
     }
@@ -111,12 +120,24 @@ public class CategoryServiceImpl implements CategoryService {
         return entity;
     }
 
-    private CategoryResponse toResponse(CategoryEntity entity) {
+    private CategoryResponse toAdminResponse(CategoryEntity entity) {
         return CategoryResponse.builder()
                 .id(entity.getId())
                 .name(entity.getName())
                 .code(entity.getCode())
                 .description(entity.getDescription())
+                .coverUrl(entity.getCoverUrl())
+                .sortOrder(entity.getSortOrder())
+                .status(entity.getStatus())
+                .build();
+    }
+
+    private CategoryResponse toUserResponse(CategoryEntity entity) {
+        return CategoryResponse.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .description(entity.getDescription())
+                .coverUrl(entity.getCoverUrl())
                 .sortOrder(entity.getSortOrder())
                 .status(entity.getStatus())
                 .build();

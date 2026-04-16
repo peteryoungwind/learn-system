@@ -14,6 +14,7 @@ public class CategoryEntity {
     private String name;
     private String code;
     private String description;
+    private String coverUrl;
     private String status;
     private Integer sortOrder;
     private LocalDateTime createdAt;

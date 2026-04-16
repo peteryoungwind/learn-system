@@ -10,6 +10,7 @@ public class CategoryResponse {
     private String name;
     private String code;
     private String description;
+    private String coverUrl;
     private Integer sortOrder;
     private String status;
 }

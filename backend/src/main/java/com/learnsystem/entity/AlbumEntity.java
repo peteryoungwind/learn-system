@@ -14,6 +14,7 @@ public class AlbumEntity {
     private Long categoryId;
     private String name;
     private String description;
+    private String coverUrl;
     private String status;
     private Integer sortOrder;
     private LocalDateTime createdAt;

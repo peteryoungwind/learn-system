@@ -9,6 +9,8 @@ public interface AlbumService {
 
     List<AlbumResponse> listAuthorized(Long userId, Long categoryId);
 
+    List<AlbumResponse> listUserVisible(Long userId, Long categoryId);
+
     AlbumResponse create(AlbumRequest request);
 
     AlbumResponse update(Long id, AlbumRequest request);

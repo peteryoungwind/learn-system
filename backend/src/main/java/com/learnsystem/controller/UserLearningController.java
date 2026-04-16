@@ -4,6 +4,7 @@ import com.learnsystem.common.ApiResponse;
 import com.learnsystem.dto.AlbumResponse;
 import com.learnsystem.dto.CategoryResponse;
 import com.learnsystem.dto.LearningProgressRequest;
+import com.learnsystem.dto.MaterialPreviewResponse;
 import com.learnsystem.dto.MaterialResponse;
 import com.learnsystem.security.SecurityUtils;
 import com.learnsystem.service.AlbumService;
@@ -42,12 +43,12 @@ public class UserLearningController {
 
     @GetMapping("/categories")
     public ApiResponse<List<CategoryResponse>> categories() {
-        return ApiResponse.success(categoryService.listAuthorized(SecurityUtils.currentUserId()));
+        return ApiResponse.success(categoryService.listUserVisible(SecurityUtils.currentUserId()));
     }
 
     @GetMapping("/albums")
     public ApiResponse<List<AlbumResponse>> albums(@RequestParam(required = false) Long categoryId) {
-        return ApiResponse.success(albumService.listAuthorized(SecurityUtils.currentUserId(), categoryId));
+        return ApiResponse.success(albumService.listUserVisible(SecurityUtils.currentUserId(), categoryId));
     }
 
     @GetMapping("/materials")
@@ -63,8 +64,8 @@ public class UserLearningController {
     }
 
     @GetMapping("/materials/{id}/preview")
-    public ApiResponse<Map<String, String>> preview(@PathVariable Long id) {
-        return ApiResponse.success(Map.of("url", materialService.previewUrl(SecurityUtils.currentUserId(), id)));
+    public ApiResponse<MaterialPreviewResponse> preview(@PathVariable Long id) {
+        return ApiResponse.success(materialService.preview(SecurityUtils.currentUserId(), id));
     }
 
     @PostMapping("/materials/{id}/access")

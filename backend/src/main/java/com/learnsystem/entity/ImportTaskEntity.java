@@ -20,6 +20,9 @@ public class ImportTaskEntity {
     private String sourceProvider;
     private String sourceBucket;
     private String sourcePrefix;
+    private Long categoryId;
+    private Long albumId;
+    private String taskName;
     private Long createdBy;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

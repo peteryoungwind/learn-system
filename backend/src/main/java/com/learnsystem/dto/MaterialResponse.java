@@ -13,6 +13,10 @@ public class MaterialResponse {
     private String fileType;
     private String storageProvider;
     private String objectKey;
+    private String originalFilename;
+    private String mimeType;
+    private String previewObjectKey;
+    private String previewStatus;
     private Long categoryId;
     private Long albumId;
     private String subtitle;

@@ -23,3 +23,7 @@ app:
   jwt:
     secret: ${JWT_SECRET:01234567890123456789012345678901}
     expiration-seconds: ${JWT_EXPIRATION_SECONDS:604800}
+  upload:
+    temp-dir: ${UPLOAD_TEMP_DIR:${java.io.tmpdir}/learn-system}
+  preview:
+    libreoffice-command: ${LIBREOFFICE_COMMAND:soffice}

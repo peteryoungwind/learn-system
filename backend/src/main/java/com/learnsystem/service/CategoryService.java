@@ -9,6 +9,8 @@ public interface CategoryService {
 
     List<CategoryResponse> listAuthorized(Long userId);
 
+    List<CategoryResponse> listUserVisible(Long userId);
+
     CategoryResponse create(CategoryRequest request);
 
     CategoryResponse update(Long id, CategoryRequest request);

@@ -1,38 +1,28 @@
-import { onMounted, reactive, ref, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { computed, onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { userLearningApi } from '../../api/modules';
-const route = useRoute();
 const router = useRouter();
 const categories = ref([]);
 const albums = ref([]);
-const materials = ref([]);
-const filters = reactive({
-    keyword: String(route.query.keyword || ''),
-});
-async function loadBase() {
+const categoryGroups = computed(() => categories.value
+    .map((category) => ({
+    category,
+    albums: albums.value
+        .filter((album) => album.categoryId === category.id)
+        .sort((a, b) => a.sortOrder - b.sortOrder || a.id - b.id),
+}))
+    .filter((group) => group.albums.length > 0));
+const albumCount = computed(() => albums.value.length);
+async function load() {
     const categoryResp = await userLearningApi.categories();
     categories.value = categoryResp.data;
+    const albumResponses = await Promise.all(categories.value.map((item) => userLearningApi.albums(item.id)));
+    albums.value = albumResponses.flatMap((response) => response.data);
 }
-async function loadAlbums() {
-    const albumResp = await userLearningApi.albums(filters.categoryId);
-    albums.value = albumResp.data;
+function openAlbum(id) {
+    router.push(`/albums/${id}`);
 }
-async function loadMaterials() {
-    const materialResp = await userLearningApi.materials(filters);
-    materials.value = materialResp.data;
-}
-function openDetail(row) {
-    router.push(`/materials/${row.id}`);
-}
-watch(() => filters.categoryId, async () => {
-    filters.albumId = undefined;
-    await loadAlbums();
-});
-onMounted(async () => {
-    await loadBase();
-    await loadAlbums();
-    await loadMaterials();
-});
+onMounted(load);
 debugger; /* PartiallyEnd: #3632/scriptSetup.vue */
 const __VLS_ctx = {};
 let __VLS_components;
@@ -41,7 +31,10 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.d
     ...{ class: "page-stack" },
 });
 __VLS_asFunctionalElement(__VLS_intrinsicElements.section, __VLS_intrinsicElements.section)({
-    ...{ class: "section-head" },
+    ...{ class: "hero-panel ui-panel" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+    ...{ class: "hero-content" },
 });
 __VLS_asFunctionalElement(__VLS_intrinsicElements.p, __VLS_intrinsicElements.p)({
     ...{ class: "eyebrow" },
@@ -52,217 +45,188 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.h1, __VLS_intrinsicElements.h1
 __VLS_asFunctionalElement(__VLS_intrinsicElements.p, __VLS_intrinsicElements.p)({
     ...{ class: "page-subtitle" },
 });
-__VLS_asFunctionalElement(__VLS_intrinsicElements.section, __VLS_intrinsicElements.section)({
-    ...{ class: "layout-grid" },
-});
-__VLS_asFunctionalElement(__VLS_intrinsicElements.aside, __VLS_intrinsicElements.aside)({
-    ...{ class: "filter-card sidebar-stack" },
-});
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
-    ...{ class: "filter-head" },
+    ...{ class: "hero-side stats-grid two-up" },
 });
-__VLS_asFunctionalElement(__VLS_intrinsicElements.p, __VLS_intrinsicElements.p)({
-    ...{ class: "eyebrow" },
+__VLS_asFunctionalElement(__VLS_intrinsicElements.article, __VLS_intrinsicElements.article)({
+    ...{ class: "metric-card" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({
+    ...{ class: "metric-label" },
 });
 __VLS_asFunctionalElement(__VLS_intrinsicElements.h2, __VLS_intrinsicElements.h2)({
-    ...{ class: "section-title" },
+    ...{ class: "metric-value" },
 });
-const __VLS_0 = {}.ElSelect;
-/** @type {[typeof __VLS_components.ElSelect, typeof __VLS_components.elSelect, typeof __VLS_components.ElSelect, typeof __VLS_components.elSelect, ]} */ ;
-// @ts-ignore
-const __VLS_1 = __VLS_asFunctionalComponent(__VLS_0, new __VLS_0({
-    modelValue: (__VLS_ctx.filters.categoryId),
-    placeholder: "分类",
-    clearable: true,
-}));
-const __VLS_2 = __VLS_1({
-    modelValue: (__VLS_ctx.filters.categoryId),
-    placeholder: "分类",
-    clearable: true,
-}, ...__VLS_functionalComponentArgsRest(__VLS_1));
-__VLS_3.slots.default;
-for (const [item] of __VLS_getVForSourceType((__VLS_ctx.categories))) {
-    const __VLS_4 = {}.ElOption;
-    /** @type {[typeof __VLS_components.ElOption, typeof __VLS_components.elOption, ]} */ ;
-    // @ts-ignore
-    const __VLS_5 = __VLS_asFunctionalComponent(__VLS_4, new __VLS_4({
-        key: (item.id),
-        label: (item.name),
-        value: (item.id),
-    }));
-    const __VLS_6 = __VLS_5({
-        key: (item.id),
-        label: (item.name),
-        value: (item.id),
-    }, ...__VLS_functionalComponentArgsRest(__VLS_5));
-}
-var __VLS_3;
-const __VLS_8 = {}.ElSelect;
-/** @type {[typeof __VLS_components.ElSelect, typeof __VLS_components.elSelect, typeof __VLS_components.ElSelect, typeof __VLS_components.elSelect, ]} */ ;
-// @ts-ignore
-const __VLS_9 = __VLS_asFunctionalComponent(__VLS_8, new __VLS_8({
-    modelValue: (__VLS_ctx.filters.albumId),
-    placeholder: "专辑",
-    clearable: true,
-}));
-const __VLS_10 = __VLS_9({
-    modelValue: (__VLS_ctx.filters.albumId),
-    placeholder: "专辑",
-    clearable: true,
-}, ...__VLS_functionalComponentArgsRest(__VLS_9));
-__VLS_11.slots.default;
-for (const [item] of __VLS_getVForSourceType((__VLS_ctx.albums))) {
-    const __VLS_12 = {}.ElOption;
-    /** @type {[typeof __VLS_components.ElOption, typeof __VLS_components.elOption, ]} */ ;
-    // @ts-ignore
-    const __VLS_13 = __VLS_asFunctionalComponent(__VLS_12, new __VLS_12({
-        key: (item.id),
-        label: (item.name),
-        value: (item.id),
-    }));
-    const __VLS_14 = __VLS_13({
-        key: (item.id),
-        label: (item.name),
-        value: (item.id),
-    }, ...__VLS_functionalComponentArgsRest(__VLS_13));
-}
-var __VLS_11;
-const __VLS_16 = {}.ElInput;
-/** @type {[typeof __VLS_components.ElInput, typeof __VLS_components.elInput, ]} */ ;
-// @ts-ignore
-const __VLS_17 = __VLS_asFunctionalComponent(__VLS_16, new __VLS_16({
-    ...{ 'onKeyup': {} },
-    modelValue: (__VLS_ctx.filters.keyword),
-    placeholder: "标题/作者",
-}));
-const __VLS_18 = __VLS_17({
-    ...{ 'onKeyup': {} },
-    modelValue: (__VLS_ctx.filters.keyword),
-    placeholder: "标题/作者",
-}, ...__VLS_functionalComponentArgsRest(__VLS_17));
-let __VLS_20;
-let __VLS_21;
-let __VLS_22;
-const __VLS_23 = {
-    onKeyup: (__VLS_ctx.loadMaterials)
-};
-var __VLS_19;
-const __VLS_24 = {}.ElButton;
-/** @type {[typeof __VLS_components.ElButton, typeof __VLS_components.elButton, typeof __VLS_components.ElButton, typeof __VLS_components.elButton, ]} */ ;
-// @ts-ignore
-const __VLS_25 = __VLS_asFunctionalComponent(__VLS_24, new __VLS_24({
-    ...{ 'onClick': {} },
-    type: "primary",
-}));
-const __VLS_26 = __VLS_25({
-    ...{ 'onClick': {} },
-    type: "primary",
-}, ...__VLS_functionalComponentArgsRest(__VLS_25));
-let __VLS_28;
-let __VLS_29;
-let __VLS_30;
-const __VLS_31 = {
-    onClick: (__VLS_ctx.loadMaterials)
-};
-__VLS_27.slots.default;
-var __VLS_27;
-__VLS_asFunctionalElement(__VLS_intrinsicElements.section, __VLS_intrinsicElements.section)({
-    ...{ class: "panel-stack" },
-});
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
-    ...{ class: "ui-panel" },
-});
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
-    ...{ class: "summary-row" },
+(__VLS_ctx.categoryGroups.length);
+__VLS_asFunctionalElement(__VLS_intrinsicElements.article, __VLS_intrinsicElements.article)({
+    ...{ class: "metric-card" },
 });
 __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({
-    ...{ class: "badge-soft" },
+    ...{ class: "metric-label" },
 });
-(__VLS_ctx.materials.length);
-__VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({
-    ...{ class: "badge-neutral" },
+__VLS_asFunctionalElement(__VLS_intrinsicElements.h2, __VLS_intrinsicElements.h2)({
+    ...{ class: "metric-value" },
 });
-(__VLS_ctx.filters.keyword || '全部资料');
-if (!__VLS_ctx.materials.length) {
-    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+(__VLS_ctx.albumCount);
+if (!__VLS_ctx.categoryGroups.length) {
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.section, __VLS_intrinsicElements.section)({
         ...{ class: "ui-panel empty-shell" },
     });
-    const __VLS_32 = {}.ElEmpty;
+    const __VLS_0 = {}.ElEmpty;
     /** @type {[typeof __VLS_components.ElEmpty, typeof __VLS_components.elEmpty, ]} */ ;
     // @ts-ignore
-    const __VLS_33 = __VLS_asFunctionalComponent(__VLS_32, new __VLS_32({
-        description: "暂无资料，请调整筛选条件",
+    const __VLS_1 = __VLS_asFunctionalComponent(__VLS_0, new __VLS_0({
+        description: "暂无可浏览的专辑内容",
     }));
-    const __VLS_34 = __VLS_33({
-        description: "暂无资料，请调整筛选条件",
-    }, ...__VLS_functionalComponentArgsRest(__VLS_33));
+    const __VLS_2 = __VLS_1({
+        description: "暂无可浏览的专辑内容",
+    }, ...__VLS_functionalComponentArgsRest(__VLS_1));
 }
 else {
-    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
-        ...{ class: "result-grid" },
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.section, __VLS_intrinsicElements.section)({
+        ...{ class: "page-stack" },
     });
-    for (const [item] of __VLS_getVForSourceType((__VLS_ctx.materials))) {
+    for (const [group] of __VLS_getVForSourceType((__VLS_ctx.categoryGroups))) {
         __VLS_asFunctionalElement(__VLS_intrinsicElements.article, __VLS_intrinsicElements.article)({
-            ...{ onClick: (...[$event]) => {
-                    if (!!(!__VLS_ctx.materials.length))
-                        return;
-                    __VLS_ctx.openDetail(item);
-                } },
-            key: (item.id),
-            ...{ class: "result-item" },
+            key: (group.category.id),
+            ...{ class: "ui-panel" },
         });
-        __VLS_asFunctionalElement(__VLS_intrinsicElements.h3, __VLS_intrinsicElements.h3)({
-            ...{ class: "result-title" },
-        });
-        (item.title);
-        __VLS_asFunctionalElement(__VLS_intrinsicElements.p, __VLS_intrinsicElements.p)({
-            ...{ class: "card-copy" },
-        });
-        (item.summary || '暂无摘要');
         __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
-            ...{ class: "result-meta" },
+            ...{ class: "summary-row album-group-head" },
         });
-        __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
-        (item.author || '未知作者');
-        __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
-        (item.fileType);
-        __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
-        (item.publishStatus);
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+            ...{ class: "library-group-copy" },
+        });
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+            ...{ class: "library-group-title-row" },
+        });
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+            ...{ class: "library-group-cover-shell" },
+        });
+        if (group.category.coverUrl) {
+            __VLS_asFunctionalElement(__VLS_intrinsicElements.img)({
+                src: (group.category.coverUrl),
+                alt: "cover",
+                ...{ class: "library-group-cover-image" },
+            });
+        }
+        else {
+            __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+                ...{ class: "library-group-cover-placeholder" },
+            });
+            (group.category.name.slice(0, 1));
+        }
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.h2, __VLS_intrinsicElements.h2)({
+            ...{ class: "section-title" },
+        });
+        (group.category.name);
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.p, __VLS_intrinsicElements.p)({
+            ...{ class: "section-copy" },
+        });
+        (group.category.description || '浏览该分类下的专辑内容。');
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({
+            ...{ class: "badge-soft" },
+        });
+        (group.albums.length);
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+            ...{ class: "album-card-grid" },
+        });
+        for (const [album] of __VLS_getVForSourceType((group.albums))) {
+            __VLS_asFunctionalElement(__VLS_intrinsicElements.article, __VLS_intrinsicElements.article)({
+                ...{ onClick: (...[$event]) => {
+                        if (!!(!__VLS_ctx.categoryGroups.length))
+                            return;
+                        __VLS_ctx.openAlbum(album.id);
+                    } },
+                key: (album.id),
+                ...{ class: "album-card library-album-card" },
+            });
+            __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+                ...{ class: "album-cover-shell" },
+            });
+            if (album.coverUrl) {
+                __VLS_asFunctionalElement(__VLS_intrinsicElements.img)({
+                    src: (album.coverUrl),
+                    alt: "cover",
+                    ...{ class: "album-cover-image" },
+                });
+            }
+            else {
+                __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+                    ...{ class: "album-cover-placeholder" },
+                });
+                (album.name.slice(0, 1));
+            }
+            __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+                ...{ class: "album-card-body" },
+            });
+            __VLS_asFunctionalElement(__VLS_intrinsicElements.h3, __VLS_intrinsicElements.h3)({
+                ...{ class: "card-title" },
+            });
+            (album.name);
+            __VLS_asFunctionalElement(__VLS_intrinsicElements.p, __VLS_intrinsicElements.p)({
+                ...{ class: "card-copy line-clamp-2" },
+            });
+            (album.description || '暂无专辑简介');
+            __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+                ...{ class: "result-meta" },
+            });
+            __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
+            (album.status);
+            __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
+            (album.sortOrder);
+        }
     }
 }
 /** @type {__VLS_StyleScopedClasses['page-stack']} */ ;
-/** @type {__VLS_StyleScopedClasses['section-head']} */ ;
+/** @type {__VLS_StyleScopedClasses['hero-panel']} */ ;
+/** @type {__VLS_StyleScopedClasses['ui-panel']} */ ;
+/** @type {__VLS_StyleScopedClasses['hero-content']} */ ;
 /** @type {__VLS_StyleScopedClasses['eyebrow']} */ ;
 /** @type {__VLS_StyleScopedClasses['page-title']} */ ;
 /** @type {__VLS_StyleScopedClasses['page-subtitle']} */ ;
-/** @type {__VLS_StyleScopedClasses['layout-grid']} */ ;
-/** @type {__VLS_StyleScopedClasses['filter-card']} */ ;
-/** @type {__VLS_StyleScopedClasses['sidebar-stack']} */ ;
-/** @type {__VLS_StyleScopedClasses['filter-head']} */ ;
-/** @type {__VLS_StyleScopedClasses['eyebrow']} */ ;
-/** @type {__VLS_StyleScopedClasses['section-title']} */ ;
-/** @type {__VLS_StyleScopedClasses['panel-stack']} */ ;
-/** @type {__VLS_StyleScopedClasses['ui-panel']} */ ;
-/** @type {__VLS_StyleScopedClasses['summary-row']} */ ;
-/** @type {__VLS_StyleScopedClasses['badge-soft']} */ ;
-/** @type {__VLS_StyleScopedClasses['badge-neutral']} */ ;
+/** @type {__VLS_StyleScopedClasses['hero-side']} */ ;
+/** @type {__VLS_StyleScopedClasses['stats-grid']} */ ;
+/** @type {__VLS_StyleScopedClasses['two-up']} */ ;
+/** @type {__VLS_StyleScopedClasses['metric-card']} */ ;
+/** @type {__VLS_StyleScopedClasses['metric-label']} */ ;
+/** @type {__VLS_StyleScopedClasses['metric-value']} */ ;
+/** @type {__VLS_StyleScopedClasses['metric-card']} */ ;
+/** @type {__VLS_StyleScopedClasses['metric-label']} */ ;
+/** @type {__VLS_StyleScopedClasses['metric-value']} */ ;
 /** @type {__VLS_StyleScopedClasses['ui-panel']} */ ;
 /** @type {__VLS_StyleScopedClasses['empty-shell']} */ ;
-/** @type {__VLS_StyleScopedClasses['result-grid']} */ ;
-/** @type {__VLS_StyleScopedClasses['result-item']} */ ;
-/** @type {__VLS_StyleScopedClasses['result-title']} */ ;
+/** @type {__VLS_StyleScopedClasses['page-stack']} */ ;
+/** @type {__VLS_StyleScopedClasses['ui-panel']} */ ;
+/** @type {__VLS_StyleScopedClasses['summary-row']} */ ;
+/** @type {__VLS_StyleScopedClasses['album-group-head']} */ ;
+/** @type {__VLS_StyleScopedClasses['library-group-copy']} */ ;
+/** @type {__VLS_StyleScopedClasses['library-group-title-row']} */ ;
+/** @type {__VLS_StyleScopedClasses['library-group-cover-shell']} */ ;
+/** @type {__VLS_StyleScopedClasses['library-group-cover-image']} */ ;
+/** @type {__VLS_StyleScopedClasses['library-group-cover-placeholder']} */ ;
+/** @type {__VLS_StyleScopedClasses['section-title']} */ ;
+/** @type {__VLS_StyleScopedClasses['section-copy']} */ ;
+/** @type {__VLS_StyleScopedClasses['badge-soft']} */ ;
+/** @type {__VLS_StyleScopedClasses['album-card-grid']} */ ;
+/** @type {__VLS_StyleScopedClasses['album-card']} */ ;
+/** @type {__VLS_StyleScopedClasses['library-album-card']} */ ;
+/** @type {__VLS_StyleScopedClasses['album-cover-shell']} */ ;
+/** @type {__VLS_StyleScopedClasses['album-cover-image']} */ ;
+/** @type {__VLS_StyleScopedClasses['album-cover-placeholder']} */ ;
+/** @type {__VLS_StyleScopedClasses['album-card-body']} */ ;
+/** @type {__VLS_StyleScopedClasses['card-title']} */ ;
 /** @type {__VLS_StyleScopedClasses['card-copy']} */ ;
+/** @type {__VLS_StyleScopedClasses['line-clamp-2']} */ ;
 /** @type {__VLS_StyleScopedClasses['result-meta']} */ ;
 var __VLS_dollars;
 const __VLS_self = (await import('vue')).defineComponent({
     setup() {
         return {
-            categories: categories,
-            albums: albums,
-            materials: materials,
-            filters: filters,
-            loadMaterials: loadMaterials,
-            openDetail: openDetail,
+            categoryGroups: categoryGroups,
+            albumCount: albumCount,
+            openAlbum: openAlbum,
         };
     },
 });

@@ -1,97 +1,100 @@
 <template>
   <div class="page-stack">
-    <section class="section-head">
-      <p class="eyebrow">Library Browser</p>
-      <h1 class="page-title">资料浏览</h1>
-      <p class="page-subtitle">通过分类、专辑和关键词筛选内容列表。</p>
+    <section class="hero-panel ui-panel">
+      <div class="hero-content">
+        <p class="eyebrow">Library Browser</p>
+        <h1 class="page-title">专辑资料库</h1>
+        <p class="page-subtitle">按分类查看你可访问的专辑内容，进入专辑后继续浏览资料。</p>
+      </div>
+      <div class="hero-side stats-grid two-up">
+        <article class="metric-card">
+          <span class="metric-label">分类数</span>
+          <h2 class="metric-value">{{ categoryGroups.length }}</h2>
+        </article>
+        <article class="metric-card">
+          <span class="metric-label">专辑数</span>
+          <h2 class="metric-value">{{ albumCount }}</h2>
+        </article>
+      </div>
     </section>
 
-    <section class="layout-grid">
-      <aside class="filter-card sidebar-stack">
-        <div class="filter-head">
-          <p class="eyebrow">Filters</p>
-          <h2 class="section-title">浏览条件</h2>
-        </div>
-        <el-select v-model="filters.categoryId" placeholder="分类" clearable>
-          <el-option v-for="item in categories" :key="item.id" :label="item.name" :value="item.id" />
-        </el-select>
-        <el-select v-model="filters.albumId" placeholder="专辑" clearable>
-          <el-option v-for="item in albums" :key="item.id" :label="item.name" :value="item.id" />
-        </el-select>
-        <el-input v-model="filters.keyword" placeholder="标题/作者" @keyup.enter="loadMaterials" />
-        <el-button type="primary" @click="loadMaterials">查询</el-button>
-      </aside>
+    <section v-if="!categoryGroups.length" class="ui-panel empty-shell">
+      <el-empty description="暂无可浏览的专辑内容" />
+    </section>
 
-      <section class="panel-stack">
-        <div class="ui-panel">
-          <div class="summary-row">
-            <span class="badge-soft">{{ materials.length }} 条结果</span>
-            <span class="badge-neutral">{{ filters.keyword || '全部资料' }}</span>
+    <section v-else class="page-stack">
+      <article v-for="group in categoryGroups" :key="group.category.id" class="ui-panel">
+        <div class="summary-row album-group-head">
+          <div class="library-group-copy">
+            <div class="library-group-title-row">
+              <div class="library-group-cover-shell">
+                <img v-if="group.category.coverUrl" :src="group.category.coverUrl" alt="cover" class="library-group-cover-image" />
+                <div v-else class="library-group-cover-placeholder">{{ group.category.name.slice(0, 1) }}</div>
+              </div>
+              <div>
+                <h2 class="section-title">{{ group.category.name }}</h2>
+                <p class="section-copy">{{ group.category.description || '浏览该分类下的专辑内容。' }}</p>
+              </div>
+            </div>
           </div>
+          <span class="badge-soft">{{ group.albums.length }} 个专辑</span>
         </div>
 
-        <div v-if="!materials.length" class="ui-panel empty-shell">
-          <el-empty description="暂无资料，请调整筛选条件" />
-        </div>
-
-        <div v-else class="result-grid">
-          <article v-for="item in materials" :key="item.id" class="result-item" @click="openDetail(item)">
-            <h3 class="result-title">{{ item.title }}</h3>
-            <p class="card-copy">{{ item.summary || '暂无摘要' }}</p>
-            <div class="result-meta">
-              <span>{{ item.author || '未知作者' }}</span>
-              <span>{{ item.fileType }}</span>
-              <span>{{ item.publishStatus }}</span>
+        <div class="album-card-grid">
+          <article v-for="album in group.albums" :key="album.id" class="album-card library-album-card" @click="openAlbum(album.id)">
+            <div class="album-cover-shell">
+              <img v-if="album.coverUrl" :src="album.coverUrl" alt="cover" class="album-cover-image" />
+              <div v-else class="album-cover-placeholder">{{ album.name.slice(0, 1) }}</div>
+            </div>
+            <div class="album-card-body">
+              <h3 class="card-title">{{ album.name }}</h3>
+              <p class="card-copy line-clamp-2">{{ album.description || '暂无专辑简介' }}</p>
+              <div class="result-meta">
+                <span>{{ album.status }}</span>
+                <span>排序 {{ album.sortOrder }}</span>
+              </div>
             </div>
           </article>
         </div>
-      </section>
+      </article>
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { computed, onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { userLearningApi } from '../../api/modules'
-import type { Album, Category, Material } from '../../types'
+import type { Album, Category } from '../../types'
 
-const route = useRoute()
 const router = useRouter()
 const categories = ref<Category[]>([])
 const albums = ref<Album[]>([])
-const materials = ref<Material[]>([])
-const filters = reactive<{ categoryId?: number; albumId?: number; keyword?: string }>({
-  keyword: String(route.query.keyword || ''),
-})
 
-async function loadBase() {
+const categoryGroups = computed(() =>
+  categories.value
+    .map((category) => ({
+      category,
+      albums: albums.value
+        .filter((album) => album.categoryId === category.id)
+        .sort((a, b) => a.sortOrder - b.sortOrder || a.id - b.id),
+    }))
+    .filter((group) => group.albums.length > 0),
+)
+
+const albumCount = computed(() => albums.value.length)
+
+async function load() {
   const categoryResp = await userLearningApi.categories()
   categories.value = categoryResp.data
+
+  const albumResponses = await Promise.all(categories.value.map((item) => userLearningApi.albums(item.id)))
+  albums.value = albumResponses.flatMap((response) => response.data)
 }
 
-async function loadAlbums() {
-  const albumResp = await userLearningApi.albums(filters.categoryId)
-  albums.value = albumResp.data
+function openAlbum(id: number) {
+  router.push(`/albums/${id}`)
 }
 
-async function loadMaterials() {
-  const materialResp = await userLearningApi.materials(filters)
-  materials.value = materialResp.data
-}
-
-function openDetail(row: Material) {
-  router.push(`/materials/${row.id}`)
-}
-
-watch(() => filters.categoryId, async () => {
-  filters.albumId = undefined
-  await loadAlbums()
-})
-
-onMounted(async () => {
-  await loadBase()
-  await loadAlbums()
-  await loadMaterials()
-})
+onMounted(load)
 </script>

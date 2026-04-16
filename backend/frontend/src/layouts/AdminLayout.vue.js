@@ -164,24 +164,39 @@ const __VLS_32 = {}.RouterLink;
 // @ts-ignore
 const __VLS_33 = __VLS_asFunctionalComponent(__VLS_32, new __VLS_32({
     ...{ class: "nav-pill" },
-    ...{ class: ({ 'is-active': __VLS_ctx.route.path.startsWith('/admin/imports') }) },
-    to: "/admin/imports",
+    ...{ class: ({ 'is-active': __VLS_ctx.route.path.startsWith('/admin/storage') }) },
+    to: "/admin/storage",
 }));
 const __VLS_34 = __VLS_33({
     ...{ class: "nav-pill" },
-    ...{ class: ({ 'is-active': __VLS_ctx.route.path.startsWith('/admin/imports') }) },
-    to: "/admin/imports",
+    ...{ class: ({ 'is-active': __VLS_ctx.route.path.startsWith('/admin/storage') }) },
+    to: "/admin/storage",
 }, ...__VLS_functionalComponentArgsRest(__VLS_33));
 __VLS_35.slots.default;
 var __VLS_35;
+const __VLS_36 = {}.RouterLink;
+/** @type {[typeof __VLS_components.RouterLink, typeof __VLS_components.routerLink, typeof __VLS_components.RouterLink, typeof __VLS_components.routerLink, ]} */ ;
+// @ts-ignore
+const __VLS_37 = __VLS_asFunctionalComponent(__VLS_36, new __VLS_36({
+    ...{ class: "nav-pill" },
+    ...{ class: ({ 'is-active': __VLS_ctx.route.path.startsWith('/admin/imports') }) },
+    to: "/admin/imports",
+}));
+const __VLS_38 = __VLS_37({
+    ...{ class: "nav-pill" },
+    ...{ class: ({ 'is-active': __VLS_ctx.route.path.startsWith('/admin/imports') }) },
+    to: "/admin/imports",
+}, ...__VLS_functionalComponentArgsRest(__VLS_37));
+__VLS_39.slots.default;
+var __VLS_39;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.section, __VLS_intrinsicElements.section)({
     ...{ class: "content-shell ui-panel" },
 });
-const __VLS_36 = {}.RouterView;
+const __VLS_40 = {}.RouterView;
 /** @type {[typeof __VLS_components.RouterView, typeof __VLS_components.routerView, ]} */ ;
 // @ts-ignore
-const __VLS_37 = __VLS_asFunctionalComponent(__VLS_36, new __VLS_36({}));
-const __VLS_38 = __VLS_37({}, ...__VLS_functionalComponentArgsRest(__VLS_37));
+const __VLS_41 = __VLS_asFunctionalComponent(__VLS_40, new __VLS_40({}));
+const __VLS_42 = __VLS_41({}, ...__VLS_functionalComponentArgsRest(__VLS_41));
 /** @type {__VLS_StyleScopedClasses['app-shell']} */ ;
 /** @type {__VLS_StyleScopedClasses['admin-shell']} */ ;
 /** @type {__VLS_StyleScopedClasses['app-topbar']} */ ;
@@ -200,6 +215,7 @@ const __VLS_38 = __VLS_37({}, ...__VLS_functionalComponentArgsRest(__VLS_37));
 /** @type {__VLS_StyleScopedClasses['section-title']} */ ;
 /** @type {__VLS_StyleScopedClasses['section-copy']} */ ;
 /** @type {__VLS_StyleScopedClasses['app-nav']} */ ;
+/** @type {__VLS_StyleScopedClasses['nav-pill']} */ ;
 /** @type {__VLS_StyleScopedClasses['nav-pill']} */ ;
 /** @type {__VLS_StyleScopedClasses['nav-pill']} */ ;
 /** @type {__VLS_StyleScopedClasses['nav-pill']} */ ;
