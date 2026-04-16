@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learning Vault V2 原型总览</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="index-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark">LV</div>
+          <div class="brand-copy">
+            <small>Prototype V2</small>
+            <strong>Learning Vault · 双系统 PC 原型</strong>
+          </div>
+        </div>
+        <nav class="subnav">
+          <a class="nav-link active" href="./index.html">原型目录</a>
+          <a class="nav-link" href="./pages/page-01-login.html">系统入口</a>
+          <a class="nav-link" href="./pages/page-02-user-home.html">用户端</a>
+          <a class="nav-link" href="./pages/page-06-admin-dashboard.html">管理员端</a>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <div class="eyebrow">Updated From Latest Requirements</div>
+        <h1>新版原型重点解决“两套 PC 系统”的信息架构分离。</h1>
+        <p>
+          本次依据最新需求文档
+          <strong>/Users/admin/code/github/learn-system/backend/doc/learning-knowledge-base-requirements.md</strong>
+          重新生成。核心变化是把 PC 前端明确拆成
+          <strong>用户端</strong> 与 <strong>管理员端</strong> 两套独立页面体系：共用账号体系与视觉语言，但入口、导航、权限边界、页面目标完全分开。
+        </p>
+        <div class="hero-actions">
+          <a class="primary-button" href="./pages/page-01-login.html">从入口页开始评审</a>
+          <a class="secondary-button" href="./pages/page-06-admin-dashboard.html">先看管理员端</a>
+        </div>
+      </section>
+
+      <section class="split" style="margin-top: 24px;">
+        <article class="portal-card user-card">
+          <span class="system-pill user">用户端系统</span>
+          <h2>给所有登录用户使用</h2>
+          <p class="muted">目标是浏览、查询、搜索、预览、继续学习。布局轻、操作少、内容优先。</p>
+          <div class="review-order" style="margin-top: 8px;">
+            <span>用户首页</span>
+            <span>资料浏览</span>
+            <span>搜索</span>
+            <span>学习页</span>
+          </div>
+        </article>
+        <article class="portal-card admin-card">
+          <span class="system-pill admin">管理员端系统</span>
+          <h2>只给管理员使用</h2>
+          <p class="muted">目标是高效维护用户、分类、专辑、资料和导入任务。布局更偏工作台，但仍保持 Apple 风格的轻盈质感。</p>
+          <div class="review-order" style="margin-top: 8px;">
+            <span>后台首页</span>
+            <span>分类与专辑</span>
+            <span>资料管理</span>
+            <span>导入任务</span>
+            <span>用户权限</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel" style="margin-top: 24px;">
+        <div class="section-head">
+          <div>
+            <div class="section-label">Review Order</div>
+            <h2>推荐浏览顺序</h2>
+          </div>
+          <p>先看入口与角色分流，再看用户端完整学习闭环，最后看管理员端的管理闭环。</p>
+        </div>
+        <div class="review-order">
+          <span>01 登录页 / 系统入口</span>
+          <span>02 用户端首页</span>
+          <span>03 用户端资料浏览</span>
+          <span>04 用户端搜索</span>
+          <span>05 用户端学习页</span>
+          <span>06 管理员端首页</span>
+          <span>07 分类 / 专辑管理</span>
+          <span>08 资料管理</span>
+          <span>09 导入任务页</span>
+          <span>10 用户与权限管理</span>
+        </div>
+      </section>
+
+      <section class="page-links" style="margin-top: 24px;">
+        <a class="page-link-card" href="./pages/page-01-login.html">
+          <div class="eyebrow">01</div>
+          <h3>登录页 / 系统入口页</h3>
+          <p class="muted">共用入口、角色分流、管理员直达后台、普通用户误入管理员端的无权限反馈。</p>
+          <span class="badge warning">双系统入口</span>
+        </a>
+        <a class="page-link-card" href="./pages/page-02-user-home.html">
+          <div class="eyebrow">02</div>
+          <h3>用户端首页</h3>
+          <p class="muted">继续学习、授权分类、最近资料和搜索入口集中呈现。</p>
+          <span class="badge success">用户端</span>
+        </a>
+        <a class="page-link-card" href="./pages/page-03-library-browser.html">
+          <div class="eyebrow">03</div>
+          <h3>用户端资料浏览</h3>
+          <p class="muted">按分类和专辑层级浏览资料，支持状态筛选与快速进入学习页。</p>
+          <span class="badge success">用户端</span>
+        </a>
+        <a class="page-link-card" href="./pages/page-04-search.html">
+          <div class="eyebrow">04</div>
+          <h3>用户端搜索页</h3>
+          <p class="muted">关键词搜索与分类、专辑、作者、文件类型、已读状态筛选组合。</p>
+          <span class="badge success">用户端</span>
+        </a>
+        <a class="page-link-card" href="./pages/page-05-learning-viewer.html">
+          <div class="eyebrow">05</div>
+          <h3>用户端学习页</h3>
+          <p class="muted">站内预览 / 播放、学习状态和异常处理。</p>
+          <span class="badge success">用户端</span>
+        </a>
+        <a class="page-link-card" href="./pages/page-06-admin-dashboard.html">
+          <div class="eyebrow">06</div>
+          <h3>管理员端首页</h3>
+          <p class="muted">独立后台导航、概览卡片、最近异常与系统切换。</p>
+          <span class="badge info">管理员端</span>
+        </a>
+        <a class="page-link-card" href="./pages/page-07-admin-taxonomy.html">
+          <div class="eyebrow">07</div>
+          <h3>分类 / 专辑管理页</h3>
+          <p class="muted">树形结构与详情编辑结合，强调结构治理效率。</p>
+          <span class="badge info">管理员端</span>
+        </a>
+        <a class="page-link-card" href="./pages/page-08-admin-materials.html">
+          <div class="eyebrow">08</div>
+          <h3>资料管理页</h3>
+          <p class="muted">表格、筛选、元数据编辑和异常资料修复入口。</p>
+          <span class="badge info">管理员端</span>
+        </a>
+        <a class="page-link-card" href="./pages/page-09-admin-import.html">
+          <div class="eyebrow">09</div>
+          <h3>导入任务页</h3>
+          <p class="muted">任务列表、导入类型、执行状态、成功失败结果与重试动作。</p>
+          <span class="badge info">管理员端</span>
+        </a>
+        <a class="page-link-card" href="./pages/page-10-admin-users.html">
+          <div class="eyebrow">10</div>
+          <h3>用户管理页</h3>
+          <p class="muted">创建用户、角色状态、分类授权与保存失败回滚提示。</p>
+          <span class="badge info">管理员端</span>
+        </a>
+      </section>
+
+      <section class="split" style="margin-top: 24px;">
+        <article class="panel">
+          <div class="section-head">
+            <div>
+              <div class="section-label">Structural Changes</div>
+              <h2>相对上版的主要变化</h2>
+            </div>
+          </div>
+          <div class="list">
+            <div class="list-item">
+              <strong>PC 前端从一套页面，升级为两套独立系统</strong>
+              <p class="muted">管理员端与用户端不再共用导航结构，避免管理操作干扰学习体验。</p>
+            </div>
+            <div class="list-item">
+              <strong>入口页承担系统分流与权限解释</strong>
+              <p class="muted">管理员可进入两端，普通用户只进入用户端，并显式展示误入管理员端时的反馈。</p>
+            </div>
+            <div class="list-item">
+              <strong>管理员端单独加入系统切换语义</strong>
+              <p class="muted">允许管理员从后台切回用户端视角，符合文档中的双端访问要求。</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="section-head">
+            <div>
+              <div class="section-label">Open Assumptions</div>
+              <h2>仍然保留的低风险假设</h2>
+            </div>
+          </div>
+          <div class="list">
+            <div class="list-item">
+              <strong>用户端与管理员端共用设计变量与基础组件</strong>
+              <p class="muted">因此视觉保持同一品牌语言，但布局与任务密度已经分开。</p>
+            </div>
+            <div class="list-item">
+              <strong>登录页采用共用入口模式</strong>
+              <p class="muted">如果后续你想拆成 `/admin/login` 与 `/login` 两套入口，也可以在这一版基础上再细化。</p>
+            </div>
+            <div class="list-item">
+              <strong>导入任务页聚焦任务视角</strong>
+              <p class="muted">手工录入能力仍保留，但主页面更强调任务记录、结果与重试能力。</p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <p class="footer-note">
+        输出结构遵循 `index.html + styles.css + pages/*.html`。如果你认可这版双系统原型方向，下一步我可以继续做 handoff 或者直接转成 Vue 页面骨架。
+      </p>
+    </main>
+  </body>
+</html>

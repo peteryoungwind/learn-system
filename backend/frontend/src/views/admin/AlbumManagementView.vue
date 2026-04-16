@@ -1,21 +1,31 @@
 <template>
-  <div>
-    <h1 class="page-title">专辑管理</h1>
-    <div class="toolbar">
-      <el-button type="primary" @click="openCreate">新建专辑</el-button>
-    </div>
-    <el-table :data="albums">
-      <el-table-column prop="name" label="名称" />
-      <el-table-column prop="categoryId" label="分类ID" />
-      <el-table-column prop="status" label="状态" />
-      <el-table-column prop="sortOrder" label="排序" />
-      <el-table-column label="操作">
-        <template #default="scope">
-          <el-button text @click="openEdit(scope.row)">编辑</el-button>
-          <el-button text @click="remove(scope.row.id)">删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+  <div class="page-stack">
+    <section class="section-head">
+      <p class="eyebrow">Taxonomy</p>
+      <h1 class="page-title">专辑管理</h1>
+      <p class="page-subtitle">维护专辑并归属到具体分类下。</p>
+    </section>
+
+    <section class="ui-panel">
+      <div class="toolbar">
+        <span class="badge-soft">{{ albums.length }} 个专辑</span>
+        <el-button type="primary" @click="openCreate">新建专辑</el-button>
+      </div>
+      <div class="table-shell">
+        <el-table :data="albums">
+          <el-table-column prop="name" label="名称" />
+          <el-table-column prop="categoryId" label="分类ID" />
+          <el-table-column prop="status" label="状态" />
+          <el-table-column prop="sortOrder" label="排序" />
+          <el-table-column label="操作">
+            <template #default="scope">
+              <el-button text @click="openEdit(scope.row)">编辑</el-button>
+              <el-button text @click="remove(scope.row.id)">删除</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+    </section>
 
     <el-dialog v-model="visible" :title="editingId ? '编辑专辑' : '新建专辑'">
       <el-form :model="form" label-width="80px">

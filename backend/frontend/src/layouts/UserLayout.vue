@@ -1,24 +1,38 @@
 <template>
-  <div class="page-shell">
-    <div class="glass-card" style="padding: 16px; display: flex; gap: 12px; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-      <div>
-        <strong>学习资料知识库</strong>
-        <div style="font-size: 12px; color: #6b7280">学习中心</div>
+  <div class="app-shell user-shell">
+    <header class="app-topbar">
+      <div class="brand-block">
+        <div class="brand-mark">LS</div>
+        <div class="brand-copy">
+          <p class="eyebrow">Learning System</p>
+          <h1 class="brand-title">学习资料知识库</h1>
+        </div>
       </div>
-      <div style="display: flex; gap: 8px; align-items: center;">
-        <span>{{ auth.user?.displayName }}</span>
+      <div class="topbar-actions">
+        <span class="badge-soft">{{ auth.user?.displayName }}</span>
+        <el-button v-if="auth.isAdmin" @click="goToAdminSystem">进入管理后台</el-button>
         <el-button text @click="logout">退出</el-button>
       </div>
-    </div>
-    <div class="glass-card" style="padding: 16px; margin-bottom: 16px;">
-      <el-menu :default-active="route.path" mode="horizontal" router>
-        <el-menu-item index="/">首页</el-menu-item>
-        <el-menu-item index="/library">资料浏览</el-menu-item>
-      </el-menu>
-    </div>
-    <div class="glass-card" style="padding: 20px; min-height: 70vh;">
-      <router-view />
-    </div>
+    </header>
+
+    <main class="app-main">
+      <section class="shell-banner ui-panel">
+        <div class="banner-copy">
+          <div class="system-badge">用户端</div>
+          <h2 class="section-title">学习中心</h2>
+          <p class="section-copy">按资料浏览、搜索和继续学习三条路径访问内容。</p>
+        </div>
+        <nav class="app-nav">
+          <router-link class="nav-pill" :class="{ 'is-active': route.path === '/' }" to="/">首页</router-link>
+          <router-link class="nav-pill" :class="{ 'is-active': route.path.startsWith('/library') }" to="/library">资料浏览</router-link>
+          <router-link class="nav-pill" :class="{ 'is-active': route.path.startsWith('/search') }" to="/search">搜索</router-link>
+        </nav>
+      </section>
+
+      <section class="content-shell ui-panel">
+        <router-view />
+      </section>
+    </main>
   </div>
 </template>
 
@@ -29,6 +43,10 @@ import { useAuthStore } from '../stores/auth'
 const auth = useAuthStore()
 const router = useRouter()
 const route = useRoute()
+
+function goToAdminSystem() {
+  router.push('/admin')
+}
 
 function logout() {
   auth.logout()

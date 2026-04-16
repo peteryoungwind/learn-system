@@ -6,7 +6,12 @@
 - One-sentence goal: 为个人与少量被授权成员提供一个可管理、可检索、可在线学习、可追踪状态的统一学习资料中心
 - Target users: 系统管理员（你本人）与少量被授权普通成员
 - Primary scenario: 管理员维护学习资料和分类权限，普通用户按授权范围检索、打开、继续学习资料
-- Platforms: Web，优先桌面端，兼容移动端基础浏览与播放
+- Platforms:
+  - Web
+  - PC 前端必须提供两套系统：
+    - 管理员端：仅管理员使用，用于管理用户、分类、专辑、资料与导入任务
+    - 用户端：面向所有登录用户使用，用于浏览、查询、搜索、预览和学习资料
+  - 移动端兼容基础浏览与播放能力，v1 仅要求覆盖用户端核心使用场景
 - Success definition:
   - 管理员可在 5 分钟内完成一个新分类或新专辑的创建，并录入一批新资料
   - 普通用户可在 30 秒内通过分类导航或搜索打开目标资料
@@ -24,6 +29,7 @@
 - 提供按标题、作者、分类、专辑等维度的快速检索能力
 - 记录资料级别的学习状态，包括已读/未读、完成状态、最后访问时间
 - 提供基于分类的用户授权机制
+- PC 端前端明确拆分为管理员端和用户端两套系统，避免管理功能与学习使用界面混杂
 
 ### Non-Goals
 
@@ -83,6 +89,15 @@
 - 管理员账号登录
 - 普通用户账号登录
 - 管理员创建账号或邀请成员
+- PC 管理员端
+  - 管理用户
+  - 管理分类、专辑、资料
+  - 执行资料导入
+- PC 用户端
+  - 浏览资料
+  - 搜索资料
+  - 预览/播放资料
+  - 管理个人学习状态
 - 分类管理
 - 专辑管理
 - 资料管理
@@ -103,7 +118,9 @@
   - 最后访问时间
 - 最近访问资料快速继续
 - 基于分类的权限控制
-- 管理后台与普通用户使用界面
+- PC 前端双系统架构：
+  - 管理员端与用户端为两套独立的信息架构和页面集合
+  - 两端可复用同一账号体系与设计语言，但需有独立入口、独立导航与独立权限边界
 
 ### Later / Optional
 
@@ -184,6 +201,21 @@
 - Failure or exception paths:
   - 分类被删除时，系统自动移除无效授权
   - 保存失败时保留原权限并提示原因
+
+### Flow 5: 管理员与普通用户进入不同 PC 系统
+
+- Entry point: PC 首页入口、登录页、管理员端入口、用户端入口
+- Steps:
+  1. 用户访问系统登录页或某一端入口页
+  2. 输入账号密码完成登录
+  3. 系统根据访问入口和当前角色决定进入管理员端或用户端
+  4. 管理员可进入管理员端执行管理操作，也可进入用户端使用资料
+  5. 普通用户仅进入用户端
+- Success outcome:
+  - 管理员和普通用户都能进入与自身权限匹配的 PC 前端系统
+- Failure or exception paths:
+  - 普通用户访问管理员端入口时，系统提示无权限并阻止进入
+  - 登录成功但角色权限异常时，系统提示联系管理员并终止进入后台
 
 ## 6. Functional Requirements
 
@@ -544,7 +576,65 @@ Acceptance criteria:
 - [ ] 普通用户登录后仅能看到被授权分类下的数据
 - [ ] 用户直接访问未授权资料链接时，后端返回权限错误
 
+### FR-10 PC 双端前端系统划分
+
+- Objective: 明确 PC 端需交付管理员端和用户端两套系统，保障管理操作与学习使用场景分离
+- User value:
+  - 管理员获得清晰、高效的后台管理工作台
+  - 所有登录用户获得面向学习和检索的轻量化前台
+- Trigger:
+  - 用户访问 PC 端系统入口
+  - 用户登录成功后进入系统
+- Inputs:
+  - 当前登录用户角色
+  - 当前访问入口或目标 URL
+- Outputs:
+  - 管理员端页面集合
+  - 用户端页面集合
+  - 基于角色的导航与访问控制结果
+- Business rules:
+  - PC 前端必须有两套系统：管理员端、用户端
+  - 管理员端仅管理员可访问
+  - 用户端对所有登录用户开放，管理员也可按普通用户视角进入
+  - 两套系统应有独立入口、独立导航结构、独立页面信息架构
+  - 不允许在用户端暴露用户管理、资料维护、导入等后台管理操作
+  - 两套系统可共用账号体系、接口服务、设计变量与组件库
+- Permissions:
+  - 管理员可访问管理员端与用户端
+  - 普通用户仅可访问用户端
+- States:
+  - 未登录
+  - 已登录-管理员端
+  - 已登录-用户端
+  - 无权限
+- Edge cases:
+  - 普通用户直接输入管理员端 URL
+  - 管理员从用户端切换回管理员端
+  - 登录态过期后重新进入不同系统
+
+Acceptance criteria:
+
+- [ ] PC 端存在管理员端和用户端两套独立页面体系
+- [ ] 管理员端仅管理员可进入，普通用户访问时会被拒绝
+- [ ] 用户端允许所有登录用户访问，并提供资料浏览、查询、搜索、预览/播放等能力
+- [ ] 两套系统在导航、页面布局和功能边界上明确区分
+
 ## 7. Screens And UI/UX Requirements
+
+### PC Frontend Architecture
+
+- PC 端必须拆分为两套系统：
+  - 管理员端：
+    - 面向管理员
+    - 目标是高效完成用户管理、分类管理、专辑管理、资料管理、导入管理
+    - 页面结构以导航清晰、表格与表单高效率操作为主
+  - 用户端：
+    - 面向所有登录用户
+    - 目标是高效完成资料浏览、查询、搜索、预览/播放、继续学习
+    - 页面结构以内容消费、快速检索和连续学习为主
+- 两套系统在 PC 端应具备独立入口，例如 `/admin` 与 `/` 或等价路由空间
+- 两套系统可共用登录页，也可拆分登录入口；若共用登录页，登录后需根据角色和目标入口进行跳转
+- 管理员角色应支持在管理员端与用户端之间切换
 
 ### Visual Direction
 
@@ -575,15 +665,17 @@ Acceptance criteria:
 
 ### Screen Inventory
 
-#### Screen A: 登录页
+#### Screen A: 登录页 / 系统入口页
 
-- Purpose: 用户输入凭证并进入系统
+- Purpose: 用户输入凭证并进入管理员端或用户端
 - Key information:
   - 系统名称
+  - 入口类型说明
   - 用户名
   - 密码
 - Primary actions:
-  - 登录
+  - 登录并进入用户端
+  - 管理员登录并进入管理员端为 Supported pattern
 - Secondary actions:
   - 忘记密码为 Optional
 - Empty state:
@@ -593,11 +685,14 @@ Acceptance criteria:
 - Error state:
   - 用户名或密码错误
   - 账号停用
+  - 普通用户尝试进入管理员端
 - Responsive behavior:
   - 桌面端居中登录卡片
   - 移动端纵向排列表单
 
-#### Screen B: 普通用户首页
+### 用户端页面
+
+#### Screen B: 用户端首页
 
 - Purpose: 提供分类入口、继续学习、最近资料和搜索入口
 - Key information:
@@ -699,9 +794,11 @@ Acceptance criteria:
   - 桌面端大阅读区/播放区
   - 移动端自适应播放器和滚动容器
 
-#### Screen F: 管理后台首页
+### 管理员端页面
 
-- Purpose: 管理员快速进入分类、专辑、资料、用户管理
+#### Screen F: 管理员端首页
+
+- Purpose: 管理员快速进入用户、分类、专辑、资料与导入管理
 - Key information:
   - 管理模块导航
   - 资料数量概览
@@ -710,6 +807,7 @@ Acceptance criteria:
 - Primary actions:
   - 进入资料管理
   - 进入分类管理
+  - 进入专辑管理
   - 进入用户管理
 - Secondary actions:
   - 查看最近异常记录为 Optional
@@ -723,7 +821,32 @@ Acceptance criteria:
   - 桌面端左侧菜单 + 内容区
   - 移动端折叠菜单
 
-#### Screen G: 资料管理页
+#### Screen G: 分类/专辑管理页
+
+- Purpose: 管理资料分类结构与专辑结构
+- Key information:
+  - 分类列表
+  - 专辑列表
+  - 分类状态
+  - 专辑状态
+- Primary actions:
+  - 新建分类
+  - 编辑分类
+  - 新建专辑
+  - 编辑专辑
+- Secondary actions:
+  - 启用/停用
+  - 删除
+- Empty state:
+  - 暂无分类或专辑
+- Loading state:
+  - 列表 loading
+- Error state:
+  - 获取分类或专辑失败
+- Responsive behavior:
+  - 优先桌面端树形/列表 + 详情编辑布局
+
+#### Screen H: 资料管理页
 
 - Purpose: 管理资料、导入资料、编辑资料
 - Key information:
@@ -748,7 +871,7 @@ Acceptance criteria:
   - 优先桌面端表格布局
   - 移动端仅保留基础浏览与简单编辑
 
-#### Screen H: 用户管理页
+#### Screen I: 用户管理页
 
 - Purpose: 创建用户并配置分类权限
 - Key information:
@@ -771,6 +894,29 @@ Acceptance criteria:
   - 保存权限失败
 - Responsive behavior:
   - 优先桌面端表格 + 抽屉/弹窗编辑
+
+#### Screen J: 导入任务页
+
+- Purpose: 管理员查看导入记录、执行批量导入和对象存储导入
+- Key information:
+  - 导入任务列表
+  - 导入类型
+  - 执行状态
+  - 成功/失败数量
+- Primary actions:
+  - 新建导入任务
+  - 查看导入结果
+  - 重试失败任务为 Optional
+- Secondary actions:
+  - 下载失败清单为 Optional
+- Empty state:
+  - 暂无导入记录
+- Loading state:
+  - 列表 loading
+- Error state:
+  - 导入任务加载失败
+- Responsive behavior:
+  - 优先桌面端表格布局
 
 ### Accessibility Expectations
 
@@ -975,7 +1121,9 @@ Acceptance criteria:
 
 - Preferred frontend stack:
   - 用户未限制
-  - Assumption: 为了快速交付管理后台与阅读型界面，前端默认采用 `Vue 3 + TypeScript + Vite + Element Plus`
+  - Assumption: 为了快速交付管理员端和用户端两套 PC 前端，默认采用 `Vue 3 + TypeScript + Vite`
+  - Assumption: 可基于同一前端工程实现双路由系统，也可拆分为两个前端应用，但需共享统一账号体系与接口服务
+  - Assumption: 管理员端可使用适合后台效率场景的 UI 组件方案，用户端可使用更偏内容消费的页面壳与组件风格
 - Preferred backend stack:
   - `Java`
   - Assumption: `Spring Boot 3.x + Spring Security + JWT/Session + MyBatis-Plus`
@@ -1022,11 +1170,13 @@ Acceptance criteria:
   - 不相关
 - Browser or device support:
   - 支持近两年主流 Chrome、Edge、Safari
+  - PC 端为主交付形态，且必须包含管理员端与用户端两套系统
   - 移动端支持基础浏览、搜索、预览和播放
 
 ## 12. Analytics, Admin, And Operations
 
 - Admin features:
+  - 管理员端独立入口
   - 用户管理
   - 分类管理
   - 专辑管理
@@ -1056,6 +1206,7 @@ Acceptance criteria:
 
 ### Feature-Level Acceptance
 
+- PC 端提供管理员端和用户端两套独立系统，且角色访问边界正确
 - 管理员能够完成从创建分类到导入资料再到授权用户访问的完整闭环
 - 普通用户只能在授权分类范围内浏览、搜索、预览、播放资料
 - 用户能看到自己的最近访问资料并继续学习
@@ -1089,6 +1240,7 @@ Acceptance criteria:
 - Assumption: v1 的搜索默认覆盖标题、作者、分类、专辑等结构化字段，不承诺全文内容索引
 - Assumption: 对象存储访问采用私有桶 + 受控短时访问链接方案
 - Assumption: 对于 DOC/DOCX 等未明确要求的格式，v1 可先采用下载或外部打开的降级策略
+- Assumption: 管理员账号既可访问管理员端，也可访问用户端；普通用户仅访问用户端
 
 ## 15. Open Questions
 

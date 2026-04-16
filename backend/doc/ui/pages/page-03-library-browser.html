@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>03 用户端分类与资料浏览</title>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <main class="page-shell user-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark">LV</div>
+          <div class="brand-copy">
+            <small>Screen C</small>
+            <strong>用户端资料浏览</strong>
+          </div>
+        </div>
+        <nav class="subnav user-nav">
+          <a class="nav-link" href="../index.html">原型目录</a>
+          <a class="nav-link" href="./page-02-user-home.html">首页</a>
+          <a class="nav-link active" href="./page-03-library-browser.html">资料浏览</a>
+          <a class="nav-link" href="./page-04-search.html">搜索</a>
+        </nav>
+      </header>
+
+      <div class="layout-grid">
+        <aside class="sidebar">
+          <div class="sidebar-section">
+            <div class="section-label">Category</div>
+            <h3 style="margin-top: 8px;">推荐系统</h3>
+            <p class="muted" style="margin-top: 6px;">只展示当前用户有权限访问的分类与专辑。</p>
+          </div>
+          <div class="sidebar-section">
+            <div class="section-label">Albums</div>
+            <div class="stack-sm" style="margin-top: 12px;">
+              <a class="nav-link active" href="#">排序与重排</a>
+              <a class="nav-link" href="#">召回体系</a>
+              <a class="nav-link" href="#">特征工程</a>
+              <a class="nav-link" href="#">案例拆解</a>
+            </div>
+          </div>
+          <div class="sidebar-section">
+            <div class="section-label">Sort & Filter</div>
+            <div class="chip-row" style="margin-top: 12px;">
+              <span class="filter-pill active">最近访问</span>
+              <span class="filter-pill">发布时间</span>
+              <span class="filter-pill">未读优先</span>
+              <span class="filter-pill">PDF</span>
+            </div>
+          </div>
+        </aside>
+
+        <section class="content-stack">
+          <article class="panel">
+            <div class="section-head">
+              <div>
+                <div class="section-label">Materials</div>
+                <h1>排序与重排 · 资料列表</h1>
+              </div>
+              <div class="button-row">
+                <a class="secondary-button" href="./page-04-search.html">切到搜索</a>
+                <span class="badge info">18 份资料</span>
+              </div>
+            </div>
+            <div class="chip-row" style="margin-bottom: 18px;">
+              <span class="chip active">全部</span>
+              <span class="chip">未读</span>
+              <span class="chip">学习中</span>
+              <span class="chip">已完成</span>
+              <span class="chip">视频</span>
+              <span class="chip">HTML</span>
+            </div>
+            <div class="material-list">
+              <div class="material-item">
+                <strong>LTR 与 GBDT 混排策略实践</strong>
+                <p class="muted">作者：王自学 · PDF · 发布时间 2026-03-18</p>
+                <div class="meta-row">
+                  <span class="badge warning">学习中</span>
+                  <span class="badge info">最近访问 2 小时前</span>
+                  <a class="mini-button" href="./page-05-learning-viewer.html">继续学习</a>
+                </div>
+              </div>
+              <div class="material-item">
+                <strong>重排模型线上特征治理</strong>
+                <p class="muted">作者：团队分享 · 视频 · 发布时间 2026-02-27</p>
+                <div class="meta-row">
+                  <span class="badge neutral">未读</span>
+                  <span class="badge success">可站内播放</span>
+                  <button class="ghost-button" type="button">标记已读</button>
+                </div>
+              </div>
+              <div class="material-item">
+                <strong>Loss 设计与评估指标对齐笔记</strong>
+                <p class="muted">作者：个人整理 · HTML · 发布时间 2026-01-15</p>
+                <div class="meta-row">
+                  <span class="badge success">已读</span>
+                  <span class="badge neutral">专辑内置顶</span>
+                  <button class="ghost-button" type="button">打开详情</button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <div class="split">
+            <article class="panel">
+              <div class="section-head">
+                <div>
+                  <div class="section-label">Empty State</div>
+                  <h2>分类下暂无资料</h2>
+                </div>
+              </div>
+              <div class="empty-state">
+                <span class="badge neutral">暂无资料</span>
+                <p class="muted" style="margin-top: 10px;">保留分类与专辑导航，让用户能继续切换，而不是被踢回首页。</p>
+              </div>
+            </article>
+            <article class="panel">
+              <div class="section-head">
+                <div>
+                  <div class="section-label">Error State</div>
+                  <h2>获取资料失败</h2>
+                </div>
+              </div>
+              <div class="error-state">
+                <span class="badge danger">列表加载失败</span>
+                <p class="muted" style="margin-top: 10px;">错误提示只占内容区，左侧分类与专辑导航保持可用。</p>
+              </div>
+            </article>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

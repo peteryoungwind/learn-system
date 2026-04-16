@@ -1,21 +1,50 @@
 <template>
-  <div>
-    <h1 class="page-title">学习页</h1>
-    <div v-if="material" style="display: grid; gap: 16px;">
-      <div>
-        <h2 style="margin: 0 0 8px">{{ material.title }}</h2>
-        <div style="color: #6b7280">{{ material.author }} · {{ material.fileType }}</div>
-      </div>
-      <div class="toolbar">
-        <el-button @click="setProgress('READ', 'IN_PROGRESS')">标记已读</el-button>
-        <el-button @click="setProgress('UNREAD', 'IN_PROGRESS')">标记未读</el-button>
-        <el-button type="success" @click="setProgress('READ', 'COMPLETED')">标记完成</el-button>
-      </div>
-      <div class="glass-card" style="padding: 16px; min-height: 480px;">
-        <iframe v-if="previewUrl" :src="previewUrl" style="width: 100%; height: 480px; border: 0" />
+  <div class="page-stack">
+    <section v-if="material" class="section-head">
+      <p class="eyebrow">Viewer</p>
+      <h1 class="page-title">{{ material.title }}</h1>
+      <p class="page-subtitle">{{ material.author }} · {{ material.fileType }}</p>
+    </section>
+
+    <section v-if="material" class="viewer-layout">
+      <div class="viewer-frame">
+        <iframe v-if="previewUrl" :src="previewUrl" />
         <el-empty v-else description="预览地址加载中" />
       </div>
-    </div>
+
+      <aside class="panel-stack">
+        <div class="ui-panel">
+          <div class="section-head">
+            <p class="eyebrow">Progress</p>
+            <h2 class="section-title">学习状态</h2>
+          </div>
+          <div class="action-row">
+            <el-button @click="setProgress('READ', 'IN_PROGRESS')">标记已读</el-button>
+            <el-button @click="setProgress('UNREAD', 'IN_PROGRESS')">标记未读</el-button>
+            <el-button type="success" @click="setProgress('READ', 'COMPLETED')">标记完成</el-button>
+          </div>
+        </div>
+
+        <div class="ui-panel info-list">
+          <div class="info-item">
+            <div class="info-key">作者</div>
+            <div class="info-value">{{ material.author || '未知作者' }}</div>
+          </div>
+          <div class="info-item">
+            <div class="info-key">文件类型</div>
+            <div class="info-value">{{ material.fileType }}</div>
+          </div>
+          <div class="info-item">
+            <div class="info-key">发布状态</div>
+            <div class="info-value">{{ material.publishStatus }}</div>
+          </div>
+          <div class="info-item">
+            <div class="info-key">摘要</div>
+            <div class="info-value">{{ material.summary || '暂无摘要' }}</div>
+          </div>
+        </div>
+      </aside>
+    </section>
   </div>
 </template>
 

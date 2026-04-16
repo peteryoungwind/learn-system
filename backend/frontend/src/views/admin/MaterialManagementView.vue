@@ -1,21 +1,31 @@
 <template>
-  <div>
-    <h1 class="page-title">资料管理</h1>
-    <div class="toolbar">
-      <el-button type="primary" @click="openCreate">新建资料</el-button>
-    </div>
-    <el-table :data="materials">
-      <el-table-column prop="title" label="标题" />
-      <el-table-column prop="author" label="作者" />
-      <el-table-column prop="fileType" label="类型" />
-      <el-table-column prop="publishStatus" label="发布状态" />
-      <el-table-column label="操作">
-        <template #default="scope">
-          <el-button text @click="openEdit(scope.row)">编辑</el-button>
-          <el-button text @click="remove(scope.row.id)">删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+  <div class="page-stack">
+    <section class="section-head">
+      <p class="eyebrow">Materials</p>
+      <h1 class="page-title">资料管理</h1>
+      <p class="page-subtitle">管理资料元数据、归属分类和发布状态。</p>
+    </section>
+
+    <section class="ui-panel">
+      <div class="toolbar">
+        <span class="badge-soft">{{ materials.length }} 条资料</span>
+        <el-button type="primary" @click="openCreate">新建资料</el-button>
+      </div>
+      <div class="table-shell">
+        <el-table :data="materials">
+          <el-table-column prop="title" label="标题" />
+          <el-table-column prop="author" label="作者" />
+          <el-table-column prop="fileType" label="类型" />
+          <el-table-column prop="publishStatus" label="发布状态" />
+          <el-table-column label="操作">
+            <template #default="scope">
+              <el-button text @click="openEdit(scope.row)">编辑</el-button>
+              <el-button text @click="remove(scope.row.id)">删除</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+    </section>
 
     <el-dialog v-model="visible" :title="editingId ? '编辑资料' : '新建资料'" width="720px">
       <el-form :model="form" label-width="100px">

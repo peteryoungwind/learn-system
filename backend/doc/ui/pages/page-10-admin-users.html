@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>10 用户管理页</title>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <main class="page-shell admin-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark">LV</div>
+          <div class="brand-copy">
+            <small>Screen I</small>
+            <strong>用户管理页</strong>
+          </div>
+        </div>
+        <nav class="subnav admin-nav">
+          <a class="nav-link" href="../index.html">原型目录</a>
+          <a class="nav-link" href="./page-06-admin-dashboard.html">后台首页</a>
+          <a class="nav-link active" href="./page-10-admin-users.html">用户管理</a>
+        </nav>
+      </header>
+
+      <section class="panel">
+        <div class="toolbar">
+          <div>
+            <div class="section-label">User Directory</div>
+            <h1>创建用户并配置分类权限</h1>
+          </div>
+          <div class="button-row">
+            <button class="primary-button" type="button">新建用户</button>
+            <button class="ghost-button" type="button">重置密码</button>
+          </div>
+        </div>
+        <div class="table-wrap" style="margin-top: 18px;">
+          <table>
+            <thead>
+              <tr>
+                <th>用户名</th>
+                <th>昵称</th>
+                <th>角色</th>
+                <th>状态</th>
+                <th>可访问分类</th>
+                <th>最后登录</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ling.zhou</td>
+                <td>周琳</td>
+                <td>ADMIN</td>
+                <td><span class="badge success">正常</span></td>
+                <td>全部分类</td>
+                <td>今天 09:18</td>
+              </tr>
+              <tr>
+                <td>miles</td>
+                <td>Miles</td>
+                <td>USER</td>
+                <td><span class="badge success">正常</span></td>
+                <td>推荐系统、产品拆解</td>
+                <td>昨天 22:10</td>
+              </tr>
+              <tr>
+                <td>flora</td>
+                <td>Flora</td>
+                <td>USER</td>
+                <td><span class="badge warning">停用</span></td>
+                <td>英语口语</td>
+                <td>4 月 15 日</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="split" style="margin-top: 24px;">
+        <section class="modal-card">
+          <div class="section-head">
+            <div>
+              <div class="section-label">Create / Edit User</div>
+              <h2>用户编辑抽屉</h2>
+            </div>
+          </div>
+          <form class="form-grid">
+            <label class="field">
+              <span>用户名</span>
+              <input class="text-input" type="text" value="miles" />
+            </label>
+            <label class="field">
+              <span>昵称</span>
+              <input class="text-input" type="text" value="Miles" />
+            </label>
+            <label class="field">
+              <span>角色</span>
+              <select class="select-input"><option>USER</option><option>ADMIN</option></select>
+            </label>
+            <label class="field">
+              <span>状态</span>
+              <select class="select-input"><option>正常</option><option>停用</option></select>
+            </label>
+            <label class="field full">
+              <span>可访问分类</span>
+              <div class="chip-row">
+                <span class="chip active">推荐系统</span>
+                <span class="chip active">产品拆解</span>
+                <span class="chip">英语口语</span>
+                <span class="chip">前端工程</span>
+              </div>
+              <span class="hint">权限粒度固定为分类级，专辑与资料跟随分类可见范围自动生效。</span>
+            </label>
+          </form>
+          <div class="button-row" style="margin-top: 18px;">
+            <button class="primary-button" type="button">保存权限</button>
+            <button class="ghost-button" type="button">停用用户</button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="section-head">
+            <div>
+              <div class="section-label">Failure Path</div>
+              <h2>失败与空状态</h2>
+            </div>
+          </div>
+          <div class="stack-sm">
+            <div class="error-state">
+              <span class="badge danger">保存失败</span>
+              <p class="muted" style="margin-top: 8px;">权限保存失败时保留原权限，并告诉管理员失败原因，避免前端误判成功。</p>
+            </div>
+            <div class="empty-state">
+              <span class="badge neutral">暂无用户</span>
+              <p class="muted" style="margin-top: 8px;">空状态强调创建成员动作，并说明系统不开放公开注册。</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

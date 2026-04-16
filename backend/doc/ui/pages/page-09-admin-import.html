@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>09 导入任务页</title>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <main class="page-shell admin-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark">LV</div>
+          <div class="brand-copy">
+            <small>Screen J</small>
+            <strong>导入任务页</strong>
+          </div>
+        </div>
+        <nav class="subnav admin-nav">
+          <a class="nav-link" href="../index.html">原型目录</a>
+          <a class="nav-link" href="./page-08-admin-materials.html">资料管理</a>
+          <a class="nav-link active" href="./page-09-admin-import.html">导入任务</a>
+        </nav>
+      </header>
+
+      <section class="panel">
+        <div class="toolbar">
+          <div>
+            <div class="section-label">Import Tasks</div>
+            <h1>导入记录、结果与重试集中展示</h1>
+          </div>
+          <div class="button-row">
+            <button class="primary-button" type="button">新建导入任务</button>
+            <button class="ghost-button" type="button">下载失败清单</button>
+          </div>
+        </div>
+        <div class="stepper" style="margin-top: 18px;">
+          <div class="step active">
+            <div class="badge info">任务创建</div>
+            <h3 style="margin-top: 10px;">选择导入方式</h3>
+            <p class="muted" style="margin-top: 6px;">手工录入、模板批量、OSS / 七牛云对象导入。</p>
+          </div>
+          <div class="step">
+            <div class="badge warning">任务执行</div>
+            <h3 style="margin-top: 10px;">校验与写入</h3>
+            <p class="muted" style="margin-top: 6px;">检查必填字段、重复记录与 object key。</p>
+          </div>
+          <div class="step">
+            <div class="badge success">结果回看</div>
+            <h3 style="margin-top: 10px;">查看成功失败</h3>
+            <p class="muted" style="margin-top: 6px;">支持按任务维度回看失败原因与重试。</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="split" style="margin-top: 24px;">
+        <section class="panel">
+          <div class="section-head">
+            <div>
+              <div class="section-label">Task List</div>
+              <h2>任务列表</h2>
+            </div>
+          </div>
+          <div class="task-list">
+            <div class="task-item">
+              <strong>OSS 对象导入 #20260416-01</strong>
+              <p class="muted">类型：对象存储导入 · 状态：部分成功 · 成功 38 / 失败 2</p>
+            </div>
+            <div class="task-item">
+              <strong>批量模板导入 #20260415-04</strong>
+              <p class="muted">类型：批量导入 · 状态：导入成功 · 成功 21 / 失败 0</p>
+            </div>
+            <div class="task-item">
+              <strong>手工录入任务 #20260415-02</strong>
+              <p class="muted">类型：手工录入 · 状态：导入失败 · 成功 0 / 失败 1</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="section-head">
+            <div>
+              <div class="section-label">Result Detail</div>
+              <h2>任务结果与失败原因</h2>
+            </div>
+          </div>
+          <div class="stack-sm">
+            <div class="success-state">
+              <span class="badge success">成功 38 条</span>
+              <p class="muted" style="margin-top: 8px;">已自动写入分类、专辑、文件类型和发布时间，默认以草稿状态入库。</p>
+            </div>
+            <div class="error-state">
+              <span class="badge danger">失败 2 条</span>
+              <p class="muted" style="margin-top: 8px;">失败原因分别为 object key 不存在、分类编码错误，可直接重试或下载失败清单。</p>
+            </div>
+            <div class="loading-state">
+              <span class="badge info">任务运行中</span>
+              <div class="loading-bar" style="margin-top: 12px;"></div>
+              <div class="loading-bar"></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

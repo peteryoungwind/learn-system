@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>05 用户端学习页</title>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <main class="page-shell user-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark">LV</div>
+          <div class="brand-copy">
+            <small>Screen E</small>
+            <strong>用户端学习页</strong>
+          </div>
+        </div>
+        <nav class="subnav user-nav">
+          <a class="nav-link" href="../index.html">原型目录</a>
+          <a class="nav-link" href="./page-03-library-browser.html">返回列表</a>
+          <a class="nav-link active" href="./page-05-learning-viewer.html">学习页</a>
+        </nav>
+      </header>
+
+      <section class="panel">
+        <div class="section-head">
+          <div>
+            <div class="section-label">Material Overview</div>
+            <h1>推荐系统精讲 · 排序与重排</h1>
+            <p>作者：王自学 · PDF · 所属分类：推荐系统 · 专辑：排序与重排 · 最近访问：今天 14:26</p>
+          </div>
+          <div class="button-row">
+            <span class="badge warning">学习中</span>
+            <span class="badge info">未完成</span>
+            <button class="secondary-button" type="button">标记已读</button>
+            <button class="ghost-button" type="button">标记完成</button>
+          </div>
+        </div>
+
+        <div class="preview-frame">
+          <div class="viewer">
+            <div class="section-head">
+              <div>
+                <div class="section-label">In-App Viewer</div>
+                <h2>站内预览 / 播放容器</h2>
+              </div>
+              <span class="badge success">PDF 可直接预览</span>
+            </div>
+            <div class="viewer-surface">
+              <div class="doc-stack">
+                <div class="doc-line mid"></div>
+                <div class="doc-line"></div>
+                <div class="doc-line short"></div>
+                <div class="doc-line"></div>
+                <div class="doc-line mid"></div>
+                <p class="muted" style="margin-top: 18px;">音频、视频、HTML 共用同一页面壳，只替换中间媒体区域。</p>
+              </div>
+            </div>
+          </div>
+
+          <aside class="stack">
+            <article class="card">
+              <div class="section-label">Learning State</div>
+              <div class="two-column-table" style="margin-top: 12px;">
+                <div class="kv">
+                  <span class="meta-label">当前状态</span>
+                  <strong>学习中</strong>
+                </div>
+                <div class="kv">
+                  <span class="meta-label">最近访问</span>
+                  <strong>今天 14:26</strong>
+                </div>
+                <div class="kv">
+                  <span class="meta-label">阅读方式</span>
+                  <strong>PDF 站内预览</strong>
+                </div>
+                <div class="kv">
+                  <span class="meta-label">继续入口</span>
+                  <strong>首页继续学习</strong>
+                </div>
+              </div>
+            </article>
+            <article class="card">
+              <div class="section-label">Related Actions</div>
+              <div class="stack-sm" style="margin-top: 12px;">
+                <button class="primary-button" type="button">继续当前资料</button>
+                <button class="ghost-button" type="button">回到专辑列表</button>
+                <button class="ghost-button" type="button">同专辑下一篇</button>
+              </div>
+            </article>
+          </aside>
+        </div>
+      </section>
+
+      <section class="panel" style="margin-top: 24px;">
+        <div class="section-head">
+          <div>
+            <div class="section-label">Critical States</div>
+            <h2>资源与权限相关反馈</h2>
+          </div>
+        </div>
+        <div class="state-grid">
+          <div class="state-card">
+            <span class="badge info">加载中</span>
+            <div class="loading-bar" style="margin-top: 14px;"></div>
+            <div class="loading-bar"></div>
+            <p class="muted" style="margin-top: 12px;">预览容器使用骨架屏，避免大面积闪烁。</p>
+          </div>
+          <div class="state-card">
+            <span class="badge danger">资源异常</span>
+            <p class="muted" style="margin-top: 14px;">对象存储短时异常时，页面保留资料信息与返回入口，并提供重试。</p>
+          </div>
+          <div class="state-card">
+            <span class="badge warning">无权限 / 不支持预览</span>
+            <p class="muted" style="margin-top: 14px;">阻止内容区展示并给出清晰原因，保持用户不迷路。</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

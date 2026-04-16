@@ -1,28 +1,58 @@
 <template>
-  <div>
-    <h1 class="page-title">学习首页</h1>
-    <div class="toolbar">
-      <el-input v-model="keyword" placeholder="搜索标题或作者" style="max-width: 320px" @keyup.enter="search" />
-      <el-button type="primary" @click="search">搜索</el-button>
-    </div>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
-      <div class="glass-card" style="padding: 16px;">
-        <h3>授权分类</h3>
+  <div class="page-stack">
+    <section class="hero-panel ui-panel">
+      <div class="hero-content">
+        <p class="eyebrow">User Home</p>
+        <h1 class="hero-title">学习首页</h1>
+        <p class="hero-copy">从继续学习、按分类浏览或直接搜索三种方式进入资料内容。</p>
+        <div class="action-row">
+          <el-input v-model="keyword" placeholder="搜索标题或作者" style="max-width: 320px" @keyup.enter="search" />
+          <el-button type="primary" @click="search">搜索</el-button>
+        </div>
+      </div>
+      <div class="hero-side">
+        <div class="info-card">
+          <div class="info-key">已授权分类</div>
+          <div class="info-value">{{ categories.length }} 个可访问分类</div>
+        </div>
+        <div class="info-card">
+          <div class="info-key">继续学习</div>
+          <div class="info-value">{{ continueList.length }} 条最近记录</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card-grid two-up">
+      <article class="ui-panel">
+        <div class="section-head">
+          <p class="eyebrow">Authorized</p>
+          <h2 class="section-title">授权分类</h2>
+          <p class="section-copy">只展示当前账号有访问权限的分类。</p>
+        </div>
         <el-empty v-if="!categories.length" description="暂无授权分类" />
-        <el-space wrap>
-          <el-tag v-for="item in categories" :key="item.id">{{ item.name }}</el-tag>
-        </el-space>
-      </div>
-      <div class="glass-card" style="padding: 16px;">
-        <h3>继续学习</h3>
+        <div v-else class="chip-row">
+          <span v-for="item in categories" :key="item.id" class="filter-pill is-active">{{ item.name }}</span>
+        </div>
+      </article>
+
+      <article class="ui-panel">
+        <div class="section-head">
+          <p class="eyebrow">Continue</p>
+          <h2 class="section-title">继续学习</h2>
+          <p class="section-copy">最近访问记录会保留在这里，方便继续阅读。</p>
+        </div>
         <el-empty v-if="!continueList.length" description="暂无学习记录" />
-        <el-table v-else :data="continueList">
-          <el-table-column prop="materialId" label="资料ID" />
-          <el-table-column prop="completionStatus" label="状态" />
-          <el-table-column prop="lastAccessedAt" label="最近访问" />
-        </el-table>
-      </div>
-    </div>
+        <div v-else class="list-stack">
+          <article v-for="item in continueList" :key="item.materialId" class="list-card">
+            <h3 class="card-title">资料 #{{ item.materialId }}</h3>
+            <div class="result-meta">
+              <span>{{ item.completionStatus }}</span>
+              <span>{{ item.lastAccessedAt }}</span>
+            </div>
+          </article>
+        </div>
+      </article>
+    </section>
   </div>
 </template>
 
@@ -47,7 +77,7 @@ async function load() {
 }
 
 function search() {
-  router.push({ path: '/library', query: { keyword: keyword.value } })
+  router.push({ path: '/search', query: { keyword: keyword.value } })
 }
 
 onMounted(load)

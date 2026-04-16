@@ -3,6 +3,9 @@ import { useAuthStore } from '../stores/auth';
 const auth = useAuthStore();
 const router = useRouter();
 const route = useRoute();
+function goToUserSystem() {
+    router.push('/');
+}
 function logout() {
     auth.logout();
     router.push('/login');
@@ -12,135 +15,205 @@ const __VLS_ctx = {};
 let __VLS_components;
 let __VLS_directives;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
-    ...{ class: "page-shell" },
+    ...{ class: "app-shell admin-shell" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.header, __VLS_intrinsicElements.header)({
+    ...{ class: "app-topbar" },
 });
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
-    ...{ class: "glass-card" },
-    ...{ style: {} },
-});
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
-__VLS_asFunctionalElement(__VLS_intrinsicElements.strong, __VLS_intrinsicElements.strong)({});
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
-    ...{ style: {} },
+    ...{ class: "brand-block" },
 });
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
-    ...{ style: {} },
+    ...{ class: "brand-mark" },
 });
-__VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+    ...{ class: "brand-copy" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.p, __VLS_intrinsicElements.p)({
+    ...{ class: "eyebrow" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.h1, __VLS_intrinsicElements.h1)({
+    ...{ class: "brand-title" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+    ...{ class: "topbar-actions" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({
+    ...{ class: "badge-soft" },
+});
 (__VLS_ctx.auth.user?.displayName);
 const __VLS_0 = {}.ElButton;
 /** @type {[typeof __VLS_components.ElButton, typeof __VLS_components.elButton, typeof __VLS_components.ElButton, typeof __VLS_components.elButton, ]} */ ;
 // @ts-ignore
 const __VLS_1 = __VLS_asFunctionalComponent(__VLS_0, new __VLS_0({
     ...{ 'onClick': {} },
-    text: true,
 }));
 const __VLS_2 = __VLS_1({
     ...{ 'onClick': {} },
-    text: true,
 }, ...__VLS_functionalComponentArgsRest(__VLS_1));
 let __VLS_4;
 let __VLS_5;
 let __VLS_6;
 const __VLS_7 = {
-    onClick: (__VLS_ctx.logout)
+    onClick: (__VLS_ctx.goToUserSystem)
 };
 __VLS_3.slots.default;
 var __VLS_3;
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
-    ...{ style: {} },
-});
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
-    ...{ class: "glass-card" },
-    ...{ style: {} },
-});
-const __VLS_8 = {}.ElMenu;
-/** @type {[typeof __VLS_components.ElMenu, typeof __VLS_components.elMenu, typeof __VLS_components.ElMenu, typeof __VLS_components.elMenu, ]} */ ;
+const __VLS_8 = {}.ElButton;
+/** @type {[typeof __VLS_components.ElButton, typeof __VLS_components.elButton, typeof __VLS_components.ElButton, typeof __VLS_components.elButton, ]} */ ;
 // @ts-ignore
 const __VLS_9 = __VLS_asFunctionalComponent(__VLS_8, new __VLS_8({
-    defaultActive: (__VLS_ctx.route.path),
-    router: true,
+    ...{ 'onClick': {} },
+    text: true,
 }));
 const __VLS_10 = __VLS_9({
-    defaultActive: (__VLS_ctx.route.path),
-    router: true,
+    ...{ 'onClick': {} },
+    text: true,
 }, ...__VLS_functionalComponentArgsRest(__VLS_9));
+let __VLS_12;
+let __VLS_13;
+let __VLS_14;
+const __VLS_15 = {
+    onClick: (__VLS_ctx.logout)
+};
 __VLS_11.slots.default;
-const __VLS_12 = {}.ElMenuItem;
-/** @type {[typeof __VLS_components.ElMenuItem, typeof __VLS_components.elMenuItem, typeof __VLS_components.ElMenuItem, typeof __VLS_components.elMenuItem, ]} */ ;
-// @ts-ignore
-const __VLS_13 = __VLS_asFunctionalComponent(__VLS_12, new __VLS_12({
-    index: "/admin",
-}));
-const __VLS_14 = __VLS_13({
-    index: "/admin",
-}, ...__VLS_functionalComponentArgsRest(__VLS_13));
-__VLS_15.slots.default;
-var __VLS_15;
-const __VLS_16 = {}.ElMenuItem;
-/** @type {[typeof __VLS_components.ElMenuItem, typeof __VLS_components.elMenuItem, typeof __VLS_components.ElMenuItem, typeof __VLS_components.elMenuItem, ]} */ ;
+var __VLS_11;
+__VLS_asFunctionalElement(__VLS_intrinsicElements.main, __VLS_intrinsicElements.main)({
+    ...{ class: "app-main" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.section, __VLS_intrinsicElements.section)({
+    ...{ class: "shell-banner ui-panel" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+    ...{ class: "banner-copy" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+    ...{ class: "system-badge" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.h2, __VLS_intrinsicElements.h2)({
+    ...{ class: "section-title" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.p, __VLS_intrinsicElements.p)({
+    ...{ class: "section-copy" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.nav, __VLS_intrinsicElements.nav)({
+    ...{ class: "app-nav" },
+});
+const __VLS_16 = {}.RouterLink;
+/** @type {[typeof __VLS_components.RouterLink, typeof __VLS_components.routerLink, typeof __VLS_components.RouterLink, typeof __VLS_components.routerLink, ]} */ ;
 // @ts-ignore
 const __VLS_17 = __VLS_asFunctionalComponent(__VLS_16, new __VLS_16({
-    index: "/admin/users",
+    ...{ class: "nav-pill" },
+    ...{ class: ({ 'is-active': __VLS_ctx.route.path === '/admin' }) },
+    to: "/admin",
 }));
 const __VLS_18 = __VLS_17({
-    index: "/admin/users",
+    ...{ class: "nav-pill" },
+    ...{ class: ({ 'is-active': __VLS_ctx.route.path === '/admin' }) },
+    to: "/admin",
 }, ...__VLS_functionalComponentArgsRest(__VLS_17));
 __VLS_19.slots.default;
 var __VLS_19;
-const __VLS_20 = {}.ElMenuItem;
-/** @type {[typeof __VLS_components.ElMenuItem, typeof __VLS_components.elMenuItem, typeof __VLS_components.ElMenuItem, typeof __VLS_components.elMenuItem, ]} */ ;
+const __VLS_20 = {}.RouterLink;
+/** @type {[typeof __VLS_components.RouterLink, typeof __VLS_components.routerLink, typeof __VLS_components.RouterLink, typeof __VLS_components.routerLink, ]} */ ;
 // @ts-ignore
 const __VLS_21 = __VLS_asFunctionalComponent(__VLS_20, new __VLS_20({
-    index: "/admin/categories",
+    ...{ class: "nav-pill" },
+    ...{ class: ({ 'is-active': __VLS_ctx.route.path.startsWith('/admin/users') }) },
+    to: "/admin/users",
 }));
 const __VLS_22 = __VLS_21({
-    index: "/admin/categories",
+    ...{ class: "nav-pill" },
+    ...{ class: ({ 'is-active': __VLS_ctx.route.path.startsWith('/admin/users') }) },
+    to: "/admin/users",
 }, ...__VLS_functionalComponentArgsRest(__VLS_21));
 __VLS_23.slots.default;
 var __VLS_23;
-const __VLS_24 = {}.ElMenuItem;
-/** @type {[typeof __VLS_components.ElMenuItem, typeof __VLS_components.elMenuItem, typeof __VLS_components.ElMenuItem, typeof __VLS_components.elMenuItem, ]} */ ;
+const __VLS_24 = {}.RouterLink;
+/** @type {[typeof __VLS_components.RouterLink, typeof __VLS_components.routerLink, typeof __VLS_components.RouterLink, typeof __VLS_components.routerLink, ]} */ ;
 // @ts-ignore
 const __VLS_25 = __VLS_asFunctionalComponent(__VLS_24, new __VLS_24({
-    index: "/admin/albums",
+    ...{ class: "nav-pill" },
+    ...{ class: ({ 'is-active': __VLS_ctx.route.path.startsWith('/admin/categories') || __VLS_ctx.route.path.startsWith('/admin/albums') }) },
+    to: "/admin/categories",
 }));
 const __VLS_26 = __VLS_25({
-    index: "/admin/albums",
+    ...{ class: "nav-pill" },
+    ...{ class: ({ 'is-active': __VLS_ctx.route.path.startsWith('/admin/categories') || __VLS_ctx.route.path.startsWith('/admin/albums') }) },
+    to: "/admin/categories",
 }, ...__VLS_functionalComponentArgsRest(__VLS_25));
 __VLS_27.slots.default;
 var __VLS_27;
-const __VLS_28 = {}.ElMenuItem;
-/** @type {[typeof __VLS_components.ElMenuItem, typeof __VLS_components.elMenuItem, typeof __VLS_components.ElMenuItem, typeof __VLS_components.elMenuItem, ]} */ ;
+const __VLS_28 = {}.RouterLink;
+/** @type {[typeof __VLS_components.RouterLink, typeof __VLS_components.routerLink, typeof __VLS_components.RouterLink, typeof __VLS_components.routerLink, ]} */ ;
 // @ts-ignore
 const __VLS_29 = __VLS_asFunctionalComponent(__VLS_28, new __VLS_28({
-    index: "/admin/materials",
+    ...{ class: "nav-pill" },
+    ...{ class: ({ 'is-active': __VLS_ctx.route.path.startsWith('/admin/materials') }) },
+    to: "/admin/materials",
 }));
 const __VLS_30 = __VLS_29({
-    index: "/admin/materials",
+    ...{ class: "nav-pill" },
+    ...{ class: ({ 'is-active': __VLS_ctx.route.path.startsWith('/admin/materials') }) },
+    to: "/admin/materials",
 }, ...__VLS_functionalComponentArgsRest(__VLS_29));
 __VLS_31.slots.default;
 var __VLS_31;
-var __VLS_11;
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
-    ...{ class: "glass-card" },
-    ...{ style: {} },
+const __VLS_32 = {}.RouterLink;
+/** @type {[typeof __VLS_components.RouterLink, typeof __VLS_components.routerLink, typeof __VLS_components.RouterLink, typeof __VLS_components.routerLink, ]} */ ;
+// @ts-ignore
+const __VLS_33 = __VLS_asFunctionalComponent(__VLS_32, new __VLS_32({
+    ...{ class: "nav-pill" },
+    ...{ class: ({ 'is-active': __VLS_ctx.route.path.startsWith('/admin/imports') }) },
+    to: "/admin/imports",
+}));
+const __VLS_34 = __VLS_33({
+    ...{ class: "nav-pill" },
+    ...{ class: ({ 'is-active': __VLS_ctx.route.path.startsWith('/admin/imports') }) },
+    to: "/admin/imports",
+}, ...__VLS_functionalComponentArgsRest(__VLS_33));
+__VLS_35.slots.default;
+var __VLS_35;
+__VLS_asFunctionalElement(__VLS_intrinsicElements.section, __VLS_intrinsicElements.section)({
+    ...{ class: "content-shell ui-panel" },
 });
-const __VLS_32 = {}.RouterView;
+const __VLS_36 = {}.RouterView;
 /** @type {[typeof __VLS_components.RouterView, typeof __VLS_components.routerView, ]} */ ;
 // @ts-ignore
-const __VLS_33 = __VLS_asFunctionalComponent(__VLS_32, new __VLS_32({}));
-const __VLS_34 = __VLS_33({}, ...__VLS_functionalComponentArgsRest(__VLS_33));
-/** @type {__VLS_StyleScopedClasses['page-shell']} */ ;
-/** @type {__VLS_StyleScopedClasses['glass-card']} */ ;
-/** @type {__VLS_StyleScopedClasses['glass-card']} */ ;
-/** @type {__VLS_StyleScopedClasses['glass-card']} */ ;
+const __VLS_37 = __VLS_asFunctionalComponent(__VLS_36, new __VLS_36({}));
+const __VLS_38 = __VLS_37({}, ...__VLS_functionalComponentArgsRest(__VLS_37));
+/** @type {__VLS_StyleScopedClasses['app-shell']} */ ;
+/** @type {__VLS_StyleScopedClasses['admin-shell']} */ ;
+/** @type {__VLS_StyleScopedClasses['app-topbar']} */ ;
+/** @type {__VLS_StyleScopedClasses['brand-block']} */ ;
+/** @type {__VLS_StyleScopedClasses['brand-mark']} */ ;
+/** @type {__VLS_StyleScopedClasses['brand-copy']} */ ;
+/** @type {__VLS_StyleScopedClasses['eyebrow']} */ ;
+/** @type {__VLS_StyleScopedClasses['brand-title']} */ ;
+/** @type {__VLS_StyleScopedClasses['topbar-actions']} */ ;
+/** @type {__VLS_StyleScopedClasses['badge-soft']} */ ;
+/** @type {__VLS_StyleScopedClasses['app-main']} */ ;
+/** @type {__VLS_StyleScopedClasses['shell-banner']} */ ;
+/** @type {__VLS_StyleScopedClasses['ui-panel']} */ ;
+/** @type {__VLS_StyleScopedClasses['banner-copy']} */ ;
+/** @type {__VLS_StyleScopedClasses['system-badge']} */ ;
+/** @type {__VLS_StyleScopedClasses['section-title']} */ ;
+/** @type {__VLS_StyleScopedClasses['section-copy']} */ ;
+/** @type {__VLS_StyleScopedClasses['app-nav']} */ ;
+/** @type {__VLS_StyleScopedClasses['nav-pill']} */ ;
+/** @type {__VLS_StyleScopedClasses['nav-pill']} */ ;
+/** @type {__VLS_StyleScopedClasses['nav-pill']} */ ;
+/** @type {__VLS_StyleScopedClasses['nav-pill']} */ ;
+/** @type {__VLS_StyleScopedClasses['nav-pill']} */ ;
+/** @type {__VLS_StyleScopedClasses['content-shell']} */ ;
+/** @type {__VLS_StyleScopedClasses['ui-panel']} */ ;
 var __VLS_dollars;
 const __VLS_self = (await import('vue')).defineComponent({
     setup() {
         return {
             auth: auth,
             route: route,
+            goToUserSystem: goToUserSystem,
             logout: logout,
         };
     },

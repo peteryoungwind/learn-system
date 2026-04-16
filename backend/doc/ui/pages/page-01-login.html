@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>01 登录页 / 系统入口页</title>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <main class="login-shell">
+      <section class="login-grid">
+        <article class="glass login-side">
+          <div class="eyebrow">Screen A</div>
+          <h1>Learning Vault</h1>
+          <p class="muted" style="margin-top: 14px;">
+            新版 PC 端拆成两套系统：管理员端负责维护资料与用户，用户端负责浏览、查询、搜索和学习资料。两端共享账号，但信息架构彼此独立。
+          </p>
+
+          <div class="portal-grid" style="margin-top: 22px;">
+            <div class="portal-card user-card">
+              <span class="system-pill user">用户端入口</span>
+              <strong>所有登录用户都可进入</strong>
+              <p class="muted">浏览授权分类、继续学习、搜索和站内预览。</p>
+            </div>
+            <div class="portal-card admin-card">
+              <span class="system-pill admin">管理员端入口</span>
+              <strong>仅管理员可进入</strong>
+              <p class="muted">管理分类、专辑、资料、导入任务和用户权限。</p>
+            </div>
+          </div>
+
+          <div class="stack-sm" style="margin-top: 20px;">
+            <div class="success-state">
+              <span class="badge success">路由分流</span>
+              <p class="muted" style="margin-top: 8px;">共用登录页支持“登录并进入用户端”，管理员还可选择“登录并进入管理员端”。</p>
+            </div>
+            <div class="error-state">
+              <span class="badge danger">无权限</span>
+              <p class="muted" style="margin-top: 8px;">普通用户尝试进入管理员端时，保留当前页面上下文并给出明确拒绝提示。</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="glass login-panel">
+          <div class="section-head">
+            <div>
+              <div class="section-label">System Entry</div>
+              <h2>登录并选择进入的系统</h2>
+            </div>
+            <a class="nav-link" href="../index.html">返回目录</a>
+          </div>
+
+          <form class="stack-sm">
+            <label class="field">
+              <span>用户名</span>
+              <input class="text-input" type="text" value="ling.zhou" aria-label="用户名" />
+            </label>
+            <label class="field">
+              <span>密码</span>
+              <input class="text-input" type="password" value="password" aria-label="密码" />
+            </label>
+            <label class="field">
+              <span>目标入口</span>
+              <select class="select-input" aria-label="目标入口">
+                <option>用户端</option>
+                <option>管理员端（仅管理员）</option>
+              </select>
+            </label>
+            <div class="button-row">
+              <a class="primary-button" href="./page-02-user-home.html">登录并进入用户端</a>
+              <a class="secondary-button" href="./page-06-admin-dashboard.html">管理员进入后台</a>
+              <button class="ghost-button" type="button">忘记密码</button>
+            </div>
+          </form>
+
+          <div class="split" style="margin-top: 24px;">
+            <div class="loading-state">
+              <span class="badge info">登录中</span>
+              <div class="loading-bar" style="margin-top: 12px;"></div>
+              <div class="loading-bar"></div>
+            </div>
+            <div class="error-state">
+              <span class="badge danger">错误状态</span>
+              <strong style="display: block; margin-top: 10px;">账号停用、密码错误或角色异常</strong>
+              <p class="muted" style="margin-top: 6px;">提示不暴露敏感信息，但明确告知下一步处理方式。</p>
+            </div>
+          </div>
+
+          <p class="footer-note">
+            桌面端意图：左侧解释双系统结构，右侧完成登录与角色分流。移动端则收敛成单列表单。
+          </p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

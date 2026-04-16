@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>04 用户端搜索页</title>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <main class="page-shell user-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark">LV</div>
+          <div class="brand-copy">
+            <small>Screen D</small>
+            <strong>用户端搜索页</strong>
+          </div>
+        </div>
+        <nav class="subnav user-nav">
+          <a class="nav-link" href="../index.html">原型目录</a>
+          <a class="nav-link" href="./page-02-user-home.html">首页</a>
+          <a class="nav-link" href="./page-03-library-browser.html">资料浏览</a>
+          <a class="nav-link active" href="./page-04-search.html">搜索</a>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <div class="eyebrow">Search Across Authorized Scope</div>
+        <h1>像 Spotlight 一样轻，但只搜索你真正看得见的资料。</h1>
+        <p>搜索结果严格限制在当前用户的授权范围内。页面结构偏前台内容消费，不出现任何管理入口。</p>
+      </section>
+
+      <div class="layout-grid" style="margin-top: 24px;">
+        <aside class="sidebar">
+          <div class="sidebar-section sticky-card">
+            <div class="section-label">Filters</div>
+            <input class="search-input" type="search" value="推荐 排序" aria-label="关键词搜索" />
+            <div class="stack-sm" style="margin-top: 16px;">
+              <label class="field">
+                <span>分类</span>
+                <select class="select-input"><option>推荐系统</option></select>
+              </label>
+              <label class="field">
+                <span>专辑</span>
+                <select class="select-input"><option>排序与重排</option></select>
+              </label>
+              <label class="field">
+                <span>作者</span>
+                <input class="text-input" type="text" value="团队分享" />
+              </label>
+              <label class="field">
+                <span>文件类型</span>
+                <select class="select-input"><option>全部类型</option></select>
+              </label>
+              <label class="field">
+                <span>已读状态</span>
+                <select class="select-input"><option>全部状态</option></select>
+              </label>
+            </div>
+            <div class="button-row" style="margin-top: 18px;">
+              <button class="primary-button" type="button">执行搜索</button>
+              <button class="ghost-button" type="button">清空筛选</button>
+            </div>
+          </div>
+        </aside>
+
+        <section class="content-stack">
+          <article class="panel">
+            <div class="section-head">
+              <div>
+                <div class="section-label">Results</div>
+                <h2>共找到 24 条结果</h2>
+              </div>
+              <span class="badge info">仅展示已授权资料</span>
+            </div>
+            <div class="result-list">
+              <div class="result-item">
+                <strong>排序模型训练样本构建实践</strong>
+                <p class="muted">标题、作者匹配 · 推荐系统 / 排序与重排 · PDF</p>
+                <div class="meta-row">
+                  <span class="badge warning">未读</span>
+                  <button class="ghost-button" type="button">打开资料</button>
+                </div>
+              </div>
+              <div class="result-item">
+                <strong>推荐策略线上 A/B 观察记录</strong>
+                <p class="muted">标题匹配 · 推荐系统 / 案例拆解 · HTML</p>
+                <div class="meta-row">
+                  <span class="badge success">已读</span>
+                  <button class="ghost-button" type="button">继续学习</button>
+                </div>
+              </div>
+              <div class="result-item">
+                <strong>召回与重排职责边界分享</strong>
+                <p class="muted">作者匹配 · 推荐系统 / 召回体系 · 视频</p>
+                <div class="meta-row">
+                  <span class="badge neutral">时长 11 分钟</span>
+                  <button class="ghost-button" type="button">站内播放</button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <div class="split">
+            <article class="panel">
+              <div class="section-head">
+                <div>
+                  <div class="section-label">No Result</div>
+                  <h2>无匹配结果</h2>
+                </div>
+              </div>
+              <div class="empty-state">
+                <span class="badge neutral">未找到相关资料</span>
+                <p class="muted" style="margin-top: 8px;">保留当前关键词和筛选，让用户放宽条件或返回浏览页。</p>
+              </div>
+            </article>
+            <article class="panel">
+              <div class="section-head">
+                <div>
+                  <div class="section-label">Search Failure</div>
+                  <h2>搜索失败</h2>
+                </div>
+              </div>
+              <div class="error-state">
+                <span class="badge danger">服务暂时不可用</span>
+                <p class="muted" style="margin-top: 8px;">保持用户输入条件不丢失，并给出重试入口。</p>
+              </div>
+            </article>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

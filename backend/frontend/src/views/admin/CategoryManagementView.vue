@@ -1,21 +1,31 @@
 <template>
-  <div>
-    <h1 class="page-title">分类管理</h1>
-    <div class="toolbar">
-      <el-button type="primary" @click="openCreate">新建分类</el-button>
-    </div>
-    <el-table :data="categories">
-      <el-table-column prop="name" label="名称" />
-      <el-table-column prop="code" label="编码" />
-      <el-table-column prop="status" label="状态" />
-      <el-table-column prop="sortOrder" label="排序" />
-      <el-table-column label="操作">
-        <template #default="scope">
-          <el-button text @click="openEdit(scope.row)">编辑</el-button>
-          <el-button text @click="remove(scope.row.id)">删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+  <div class="page-stack">
+    <section class="section-head">
+      <p class="eyebrow">Taxonomy</p>
+      <h1 class="page-title">分类管理</h1>
+      <p class="page-subtitle">维护分类结构，供资料和专辑关联使用。</p>
+    </section>
+
+    <section class="ui-panel">
+      <div class="toolbar">
+        <span class="badge-soft">{{ categories.length }} 个分类</span>
+        <el-button type="primary" @click="openCreate">新建分类</el-button>
+      </div>
+      <div class="table-shell">
+        <el-table :data="categories">
+          <el-table-column prop="name" label="名称" />
+          <el-table-column prop="code" label="编码" />
+          <el-table-column prop="status" label="状态" />
+          <el-table-column prop="sortOrder" label="排序" />
+          <el-table-column label="操作">
+            <template #default="scope">
+              <el-button text @click="openEdit(scope.row)">编辑</el-button>
+              <el-button text @click="remove(scope.row.id)">删除</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+    </section>
 
     <el-dialog v-model="visible" :title="editingId ? '编辑分类' : '新建分类'">
       <el-form :model="form" label-width="80px">

@@ -1,22 +1,52 @@
 <template>
-  <div>
-    <h1 class="page-title">资料浏览</h1>
-    <div class="toolbar">
-      <el-select v-model="filters.categoryId" placeholder="分类" clearable style="width: 180px">
-        <el-option v-for="item in categories" :key="item.id" :label="item.name" :value="item.id" />
-      </el-select>
-      <el-select v-model="filters.albumId" placeholder="专辑" clearable style="width: 180px">
-        <el-option v-for="item in albums" :key="item.id" :label="item.name" :value="item.id" />
-      </el-select>
-      <el-input v-model="filters.keyword" placeholder="标题/作者" style="max-width: 280px" />
-      <el-button type="primary" @click="loadMaterials">查询</el-button>
-    </div>
-    <el-table :data="materials" @row-click="openDetail">
-      <el-table-column prop="title" label="标题" />
-      <el-table-column prop="author" label="作者" />
-      <el-table-column prop="fileType" label="类型" />
-      <el-table-column prop="publishStatus" label="状态" />
-    </el-table>
+  <div class="page-stack">
+    <section class="section-head">
+      <p class="eyebrow">Library Browser</p>
+      <h1 class="page-title">资料浏览</h1>
+      <p class="page-subtitle">通过分类、专辑和关键词筛选内容列表。</p>
+    </section>
+
+    <section class="layout-grid">
+      <aside class="filter-card sidebar-stack">
+        <div class="filter-head">
+          <p class="eyebrow">Filters</p>
+          <h2 class="section-title">浏览条件</h2>
+        </div>
+        <el-select v-model="filters.categoryId" placeholder="分类" clearable>
+          <el-option v-for="item in categories" :key="item.id" :label="item.name" :value="item.id" />
+        </el-select>
+        <el-select v-model="filters.albumId" placeholder="专辑" clearable>
+          <el-option v-for="item in albums" :key="item.id" :label="item.name" :value="item.id" />
+        </el-select>
+        <el-input v-model="filters.keyword" placeholder="标题/作者" @keyup.enter="loadMaterials" />
+        <el-button type="primary" @click="loadMaterials">查询</el-button>
+      </aside>
+
+      <section class="panel-stack">
+        <div class="ui-panel">
+          <div class="summary-row">
+            <span class="badge-soft">{{ materials.length }} 条结果</span>
+            <span class="badge-neutral">{{ filters.keyword || '全部资料' }}</span>
+          </div>
+        </div>
+
+        <div v-if="!materials.length" class="ui-panel empty-shell">
+          <el-empty description="暂无资料，请调整筛选条件" />
+        </div>
+
+        <div v-else class="result-grid">
+          <article v-for="item in materials" :key="item.id" class="result-item" @click="openDetail(item)">
+            <h3 class="result-title">{{ item.title }}</h3>
+            <p class="card-copy">{{ item.summary || '暂无摘要' }}</p>
+            <div class="result-meta">
+              <span>{{ item.author || '未知作者' }}</span>
+              <span>{{ item.fileType }}</span>
+              <span>{{ item.publishStatus }}</span>
+            </div>
+          </article>
+        </div>
+      </section>
+    </section>
   </div>
 </template>
 

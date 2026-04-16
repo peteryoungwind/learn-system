@@ -25,6 +25,22 @@ export interface Album {
   status: string
 }
 
+export interface ImportTask {
+  id: number
+  importType: string
+  status: string
+  totalCount: number
+  successCount: number
+  failCount: number
+  errorSummary?: string
+  sourceProvider?: string
+  sourceBucket?: string
+  sourcePrefix?: string
+  createdBy: number
+  createdAt: string
+  updatedAt?: string
+}
+
 export interface Material {
   id: number
   title: string

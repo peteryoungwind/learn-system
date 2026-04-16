@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>07 分类与专辑管理页</title>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <main class="page-shell admin-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark">LV</div>
+          <div class="brand-copy">
+            <small>Screen G</small>
+            <strong>分类 / 专辑管理页</strong>
+          </div>
+        </div>
+        <nav class="subnav admin-nav">
+          <a class="nav-link" href="../index.html">原型目录</a>
+          <a class="nav-link" href="./page-06-admin-dashboard.html">后台首页</a>
+          <a class="nav-link active" href="./page-07-admin-taxonomy.html">分类专辑</a>
+          <a class="nav-link" href="./page-08-admin-materials.html">资料管理</a>
+        </nav>
+      </header>
+
+      <div class="split">
+        <section class="panel">
+          <div class="section-head">
+            <div>
+              <div class="section-label">Structure Tree</div>
+              <h1>分类与专辑结构</h1>
+            </div>
+            <div class="button-row">
+              <button class="primary-button" type="button">新建分类</button>
+              <button class="secondary-button" type="button">新建专辑</button>
+            </div>
+          </div>
+          <div class="tree-list">
+            <div class="tree-item">
+              <strong>推荐系统</strong>
+              <p class="muted">编码：recommend · 启用 · 12 个专辑</p>
+              <div class="meta-row">
+                <span class="badge success">启用</span>
+                <span class="badge neutral">排序与重排 / 召回体系 / 案例拆解</span>
+              </div>
+            </div>
+            <div class="tree-item">
+              <strong>英语口语</strong>
+              <p class="muted">编码：spoken-english · 启用 · 6 个专辑</p>
+              <div class="meta-row">
+                <span class="badge success">启用</span>
+              </div>
+            </div>
+            <div class="tree-item">
+              <strong>历史草稿箱</strong>
+              <p class="muted">编码：archive-draft · 停用 · 1 个专辑</p>
+              <div class="meta-row">
+                <span class="badge warning">停用</span>
+                <span class="badge neutral">普通用户不可见</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="modal-card">
+          <div class="section-head">
+            <div>
+              <div class="section-label">Edit Detail</div>
+              <h2>详情编辑区</h2>
+            </div>
+          </div>
+          <form class="form-grid">
+            <label class="field">
+              <span>分类名称</span>
+              <input class="text-input" type="text" value="推荐系统" />
+            </label>
+            <label class="field">
+              <span>分类编码</span>
+              <input class="text-input" type="text" value="recommend" />
+            </label>
+            <label class="field">
+              <span>显示排序</span>
+              <input class="text-input" type="text" value="1" />
+            </label>
+            <label class="field">
+              <span>状态</span>
+              <select class="select-input"><option>启用</option></select>
+            </label>
+            <label class="field full">
+              <span>分类描述</span>
+              <textarea class="textarea-input">面向推荐策略、召回、排序与重排等内容沉淀。</textarea>
+            </label>
+          </form>
+          <div class="button-row" style="margin-top: 18px;">
+            <button class="primary-button" type="button">保存变更</button>
+            <button class="ghost-button" type="button">停用分类</button>
+            <button class="ghost-button" type="button">删除</button>
+          </div>
+          <div class="error-state" style="margin-top: 18px;">
+            <span class="badge danger">删除限制</span>
+            <p class="muted" style="margin-top: 8px;">当分类下仍有关联专辑或资料时，不允许直接删除，需先迁移或清空数据。</p>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

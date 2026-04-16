@@ -1,21 +1,31 @@
 <template>
-  <div>
-    <h1 class="page-title">用户管理</h1>
-    <div class="toolbar">
-      <el-button type="primary" @click="openCreate">新建用户</el-button>
-    </div>
-    <el-table :data="users">
-      <el-table-column prop="username" label="用户名" />
-      <el-table-column prop="displayName" label="显示名" />
-      <el-table-column prop="role" label="角色" />
-      <el-table-column prop="status" label="状态" />
-      <el-table-column label="操作" width="280">
-        <template #default="scope">
-          <el-button text @click="openEdit(scope.row)">编辑</el-button>
-          <el-button text @click="openPermissions(scope.row)">权限</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+  <div class="page-stack">
+    <section class="section-head">
+      <p class="eyebrow">Users</p>
+      <h1 class="page-title">用户管理</h1>
+      <p class="page-subtitle">维护账号信息、角色状态和分类授权。</p>
+    </section>
+
+    <section class="ui-panel">
+      <div class="toolbar">
+        <span class="badge-soft">{{ users.length }} 个用户</span>
+        <el-button type="primary" @click="openCreate">新建用户</el-button>
+      </div>
+      <div class="table-shell">
+        <el-table :data="users">
+          <el-table-column prop="username" label="用户名" />
+          <el-table-column prop="displayName" label="显示名" />
+          <el-table-column prop="role" label="角色" />
+          <el-table-column prop="status" label="状态" />
+          <el-table-column label="操作" width="280">
+            <template #default="scope">
+              <el-button text @click="openEdit(scope.row)">编辑</el-button>
+              <el-button text @click="openPermissions(scope.row)">权限</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+    </section>
 
     <el-dialog v-model="visible" :title="editingId ? '编辑用户' : '新建用户'">
       <el-form :model="form" label-width="80px">
@@ -36,6 +46,9 @@
     </el-dialog>
 
     <el-dialog v-model="permissionVisible" title="分类授权">
+      <div class="chip-row" style="margin-bottom: 16px;">
+        <span class="badge-neutral">可授权分类 {{ categories.length }} 个</span>
+      </div>
       <el-checkbox-group v-model="permissionForm.categoryIds">
         <el-checkbox v-for="item in categories" :key="item.id" :value="item.id">{{ item.name }}</el-checkbox>
       </el-checkbox-group>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>02 用户端首页</title>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <main class="page-shell user-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark">LV</div>
+          <div class="brand-copy">
+            <small>Screen B</small>
+            <strong>用户端首页</strong>
+          </div>
+        </div>
+        <nav class="subnav user-nav">
+          <a class="nav-link" href="../index.html">原型目录</a>
+          <a class="nav-link active" href="./page-02-user-home.html">首页</a>
+          <a class="nav-link" href="./page-03-library-browser.html">分类浏览</a>
+          <a class="nav-link" href="./page-04-search.html">搜索</a>
+        </nav>
+      </header>
+
+      <div class="switch-banner">
+        <div class="button-row">
+          <span class="system-pill user">当前：用户端</span>
+          <span class="badge neutral">所有登录用户可访问</span>
+        </div>
+        <div class="button-row">
+          <a class="ghost-button" href="./page-06-admin-dashboard.html">管理员切换到管理员端</a>
+        </div>
+      </div>
+
+      <section class="hero" style="margin-top: 24px;">
+        <div class="eyebrow">User Experience</div>
+        <h1>继续学习、找到资料、立刻打开。</h1>
+        <p>用户端聚焦内容消费与连续学习，不出现任何后台维护操作。视觉更轻，导航更少，搜索与继续学习始终在前。</p>
+        <div class="hero-actions">
+          <a class="primary-button" href="./page-05-learning-viewer.html">继续《推荐系统精讲》</a>
+          <a class="secondary-button" href="./page-04-search.html">搜索资料</a>
+        </div>
+      </section>
+
+      <div class="layout-grid" style="margin-top: 24px;">
+        <aside class="sidebar">
+          <div class="sidebar-section">
+            <div class="section-label">Quick Search</div>
+            <input class="search-input" type="search" value="推荐系统" aria-label="搜索资料" />
+          </div>
+          <div class="sidebar-section">
+            <div class="section-label">Authorized Categories</div>
+            <div class="chip-row" style="margin-top: 10px;">
+              <span class="chip active">推荐系统</span>
+              <span class="chip">英语口语</span>
+              <span class="chip">产品拆解</span>
+            </div>
+          </div>
+          <div class="sidebar-section">
+            <div class="section-label">Progress Filter</div>
+            <div class="stack-sm" style="margin-top: 10px;">
+              <span class="pill active">学习中</span>
+              <span class="pill">未读</span>
+              <span class="pill">已完成</span>
+            </div>
+          </div>
+        </aside>
+
+        <section class="content-stack">
+          <article class="panel">
+            <div class="section-head">
+              <div>
+                <div class="section-label">Continue Learning</div>
+                <h2>最近访问且未完成</h2>
+              </div>
+              <span class="badge success">3 条可继续</span>
+            </div>
+            <div class="triple">
+              <div class="card">
+                <span class="badge info">PDF</span>
+                <h3 style="margin-top: 14px;">推荐系统精讲 · 排序与重排</h3>
+                <p class="muted" style="margin-top: 8px;">上次访问：今天 14:26 · 学习中</p>
+                <div class="button-row" style="margin-top: 18px;">
+                  <a class="primary-button" href="./page-05-learning-viewer.html">继续学习</a>
+                </div>
+              </div>
+              <div class="card">
+                <span class="badge warning">视频</span>
+                <h3 style="margin-top: 14px;">口语 Shadowing Day 12</h3>
+                <p class="muted" style="margin-top: 8px;">昨天 21:10 · 未完成</p>
+                <div class="button-row" style="margin-top: 18px;">
+                  <button class="secondary-button" type="button">恢复播放</button>
+                </div>
+              </div>
+              <div class="card">
+                <span class="badge success">HTML</span>
+                <h3 style="margin-top: 14px;">Apple HIG 笔记摘录</h3>
+                <p class="muted" style="margin-top: 8px;">4 月 15 日 · 已读未完成</p>
+                <div class="button-row" style="margin-top: 18px;">
+                  <button class="ghost-button" type="button">打开详情</button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <div class="split">
+            <article class="panel">
+              <div class="section-head">
+                <div>
+                  <div class="section-label">Authorized Space</div>
+                  <h2>我的分类</h2>
+                </div>
+              </div>
+              <div class="list">
+                <div class="list-item">
+                  <strong>推荐系统</strong>
+                  <p class="muted">12 个专辑 · 138 份资料 · 最近更新 2 天前</p>
+                </div>
+                <div class="list-item">
+                  <strong>英语口语</strong>
+                  <p class="muted">6 个专辑 · 57 份资料 · 适合碎片化练习</p>
+                </div>
+              </div>
+            </article>
+            <article class="panel">
+              <div class="section-head">
+                <div>
+                  <div class="section-label">Important States</div>
+                  <h2>首页关键状态</h2>
+                </div>
+              </div>
+              <div class="stack-sm">
+                <div class="empty-state">
+                  <span class="badge neutral">空状态</span>
+                  <p class="muted" style="margin-top: 8px;">无授权分类或无学习记录时，引导用户从分类浏览开始，而不是让首页空掉。</p>
+                </div>
+                <div class="loading-state">
+                  <span class="badge info">加载中</span>
+                  <div class="loading-bar" style="margin-top: 12px;"></div>
+                  <div class="loading-bar"></div>
+                </div>
+                <div class="error-state">
+                  <span class="badge danger">错误状态</span>
+                  <p class="muted" style="margin-top: 8px;">即使首页摘要加载失败，也保留搜索和分类入口，不阻断使用主线。</p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

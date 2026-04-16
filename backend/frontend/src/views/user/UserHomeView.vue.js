@@ -14,19 +14,33 @@ async function load() {
     continueList.value = continueResp.data;
 }
 function search() {
-    router.push({ path: '/library', query: { keyword: keyword.value } });
+    router.push({ path: '/search', query: { keyword: keyword.value } });
 }
 onMounted(load);
 debugger; /* PartiallyEnd: #3632/scriptSetup.vue */
 const __VLS_ctx = {};
 let __VLS_components;
 let __VLS_directives;
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
-__VLS_asFunctionalElement(__VLS_intrinsicElements.h1, __VLS_intrinsicElements.h1)({
-    ...{ class: "page-title" },
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+    ...{ class: "page-stack" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.section, __VLS_intrinsicElements.section)({
+    ...{ class: "hero-panel ui-panel" },
 });
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
-    ...{ class: "toolbar" },
+    ...{ class: "hero-content" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.p, __VLS_intrinsicElements.p)({
+    ...{ class: "eyebrow" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.h1, __VLS_intrinsicElements.h1)({
+    ...{ class: "hero-title" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.p, __VLS_intrinsicElements.p)({
+    ...{ class: "hero-copy" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+    ...{ class: "action-row" },
 });
 const __VLS_0 = {}.ElInput;
 /** @type {[typeof __VLS_components.ElInput, typeof __VLS_components.elInput, ]} */ ;
@@ -70,13 +84,46 @@ const __VLS_15 = {
 __VLS_11.slots.default;
 var __VLS_11;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
-    ...{ style: {} },
+    ...{ class: "hero-side" },
 });
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
-    ...{ class: "glass-card" },
-    ...{ style: {} },
+    ...{ class: "info-card" },
 });
-__VLS_asFunctionalElement(__VLS_intrinsicElements.h3, __VLS_intrinsicElements.h3)({});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+    ...{ class: "info-key" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+    ...{ class: "info-value" },
+});
+(__VLS_ctx.categories.length);
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+    ...{ class: "info-card" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+    ...{ class: "info-key" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+    ...{ class: "info-value" },
+});
+(__VLS_ctx.continueList.length);
+__VLS_asFunctionalElement(__VLS_intrinsicElements.section, __VLS_intrinsicElements.section)({
+    ...{ class: "card-grid two-up" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.article, __VLS_intrinsicElements.article)({
+    ...{ class: "ui-panel" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+    ...{ class: "section-head" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.p, __VLS_intrinsicElements.p)({
+    ...{ class: "eyebrow" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.h2, __VLS_intrinsicElements.h2)({
+    ...{ class: "section-title" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.p, __VLS_intrinsicElements.p)({
+    ...{ class: "section-copy" },
+});
 if (!__VLS_ctx.categories.length) {
     const __VLS_16 = {}.ElEmpty;
     /** @type {[typeof __VLS_components.ElEmpty, typeof __VLS_components.elEmpty, ]} */ ;
@@ -88,97 +135,100 @@ if (!__VLS_ctx.categories.length) {
         description: "暂无授权分类",
     }, ...__VLS_functionalComponentArgsRest(__VLS_17));
 }
-const __VLS_20 = {}.ElSpace;
-/** @type {[typeof __VLS_components.ElSpace, typeof __VLS_components.elSpace, typeof __VLS_components.ElSpace, typeof __VLS_components.elSpace, ]} */ ;
-// @ts-ignore
-const __VLS_21 = __VLS_asFunctionalComponent(__VLS_20, new __VLS_20({
-    wrap: true,
-}));
-const __VLS_22 = __VLS_21({
-    wrap: true,
-}, ...__VLS_functionalComponentArgsRest(__VLS_21));
-__VLS_23.slots.default;
-for (const [item] of __VLS_getVForSourceType((__VLS_ctx.categories))) {
-    const __VLS_24 = {}.ElTag;
-    /** @type {[typeof __VLS_components.ElTag, typeof __VLS_components.elTag, typeof __VLS_components.ElTag, typeof __VLS_components.elTag, ]} */ ;
-    // @ts-ignore
-    const __VLS_25 = __VLS_asFunctionalComponent(__VLS_24, new __VLS_24({
-        key: (item.id),
-    }));
-    const __VLS_26 = __VLS_25({
-        key: (item.id),
-    }, ...__VLS_functionalComponentArgsRest(__VLS_25));
-    __VLS_27.slots.default;
-    (item.name);
-    var __VLS_27;
+else {
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+        ...{ class: "chip-row" },
+    });
+    for (const [item] of __VLS_getVForSourceType((__VLS_ctx.categories))) {
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({
+            key: (item.id),
+            ...{ class: "filter-pill is-active" },
+        });
+        (item.name);
+    }
 }
-var __VLS_23;
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
-    ...{ class: "glass-card" },
-    ...{ style: {} },
+__VLS_asFunctionalElement(__VLS_intrinsicElements.article, __VLS_intrinsicElements.article)({
+    ...{ class: "ui-panel" },
 });
-__VLS_asFunctionalElement(__VLS_intrinsicElements.h3, __VLS_intrinsicElements.h3)({});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+    ...{ class: "section-head" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.p, __VLS_intrinsicElements.p)({
+    ...{ class: "eyebrow" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.h2, __VLS_intrinsicElements.h2)({
+    ...{ class: "section-title" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.p, __VLS_intrinsicElements.p)({
+    ...{ class: "section-copy" },
+});
 if (!__VLS_ctx.continueList.length) {
-    const __VLS_28 = {}.ElEmpty;
+    const __VLS_20 = {}.ElEmpty;
     /** @type {[typeof __VLS_components.ElEmpty, typeof __VLS_components.elEmpty, ]} */ ;
     // @ts-ignore
-    const __VLS_29 = __VLS_asFunctionalComponent(__VLS_28, new __VLS_28({
+    const __VLS_21 = __VLS_asFunctionalComponent(__VLS_20, new __VLS_20({
         description: "暂无学习记录",
     }));
-    const __VLS_30 = __VLS_29({
+    const __VLS_22 = __VLS_21({
         description: "暂无学习记录",
-    }, ...__VLS_functionalComponentArgsRest(__VLS_29));
+    }, ...__VLS_functionalComponentArgsRest(__VLS_21));
 }
 else {
-    const __VLS_32 = {}.ElTable;
-    /** @type {[typeof __VLS_components.ElTable, typeof __VLS_components.elTable, typeof __VLS_components.ElTable, typeof __VLS_components.elTable, ]} */ ;
-    // @ts-ignore
-    const __VLS_33 = __VLS_asFunctionalComponent(__VLS_32, new __VLS_32({
-        data: (__VLS_ctx.continueList),
-    }));
-    const __VLS_34 = __VLS_33({
-        data: (__VLS_ctx.continueList),
-    }, ...__VLS_functionalComponentArgsRest(__VLS_33));
-    __VLS_35.slots.default;
-    const __VLS_36 = {}.ElTableColumn;
-    /** @type {[typeof __VLS_components.ElTableColumn, typeof __VLS_components.elTableColumn, ]} */ ;
-    // @ts-ignore
-    const __VLS_37 = __VLS_asFunctionalComponent(__VLS_36, new __VLS_36({
-        prop: "materialId",
-        label: "资料ID",
-    }));
-    const __VLS_38 = __VLS_37({
-        prop: "materialId",
-        label: "资料ID",
-    }, ...__VLS_functionalComponentArgsRest(__VLS_37));
-    const __VLS_40 = {}.ElTableColumn;
-    /** @type {[typeof __VLS_components.ElTableColumn, typeof __VLS_components.elTableColumn, ]} */ ;
-    // @ts-ignore
-    const __VLS_41 = __VLS_asFunctionalComponent(__VLS_40, new __VLS_40({
-        prop: "completionStatus",
-        label: "状态",
-    }));
-    const __VLS_42 = __VLS_41({
-        prop: "completionStatus",
-        label: "状态",
-    }, ...__VLS_functionalComponentArgsRest(__VLS_41));
-    const __VLS_44 = {}.ElTableColumn;
-    /** @type {[typeof __VLS_components.ElTableColumn, typeof __VLS_components.elTableColumn, ]} */ ;
-    // @ts-ignore
-    const __VLS_45 = __VLS_asFunctionalComponent(__VLS_44, new __VLS_44({
-        prop: "lastAccessedAt",
-        label: "最近访问",
-    }));
-    const __VLS_46 = __VLS_45({
-        prop: "lastAccessedAt",
-        label: "最近访问",
-    }, ...__VLS_functionalComponentArgsRest(__VLS_45));
-    var __VLS_35;
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+        ...{ class: "list-stack" },
+    });
+    for (const [item] of __VLS_getVForSourceType((__VLS_ctx.continueList))) {
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.article, __VLS_intrinsicElements.article)({
+            key: (item.materialId),
+            ...{ class: "list-card" },
+        });
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.h3, __VLS_intrinsicElements.h3)({
+            ...{ class: "card-title" },
+        });
+        (item.materialId);
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+            ...{ class: "result-meta" },
+        });
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
+        (item.completionStatus);
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
+        (item.lastAccessedAt);
+    }
 }
-/** @type {__VLS_StyleScopedClasses['page-title']} */ ;
-/** @type {__VLS_StyleScopedClasses['toolbar']} */ ;
-/** @type {__VLS_StyleScopedClasses['glass-card']} */ ;
-/** @type {__VLS_StyleScopedClasses['glass-card']} */ ;
+/** @type {__VLS_StyleScopedClasses['page-stack']} */ ;
+/** @type {__VLS_StyleScopedClasses['hero-panel']} */ ;
+/** @type {__VLS_StyleScopedClasses['ui-panel']} */ ;
+/** @type {__VLS_StyleScopedClasses['hero-content']} */ ;
+/** @type {__VLS_StyleScopedClasses['eyebrow']} */ ;
+/** @type {__VLS_StyleScopedClasses['hero-title']} */ ;
+/** @type {__VLS_StyleScopedClasses['hero-copy']} */ ;
+/** @type {__VLS_StyleScopedClasses['action-row']} */ ;
+/** @type {__VLS_StyleScopedClasses['hero-side']} */ ;
+/** @type {__VLS_StyleScopedClasses['info-card']} */ ;
+/** @type {__VLS_StyleScopedClasses['info-key']} */ ;
+/** @type {__VLS_StyleScopedClasses['info-value']} */ ;
+/** @type {__VLS_StyleScopedClasses['info-card']} */ ;
+/** @type {__VLS_StyleScopedClasses['info-key']} */ ;
+/** @type {__VLS_StyleScopedClasses['info-value']} */ ;
+/** @type {__VLS_StyleScopedClasses['card-grid']} */ ;
+/** @type {__VLS_StyleScopedClasses['two-up']} */ ;
+/** @type {__VLS_StyleScopedClasses['ui-panel']} */ ;
+/** @type {__VLS_StyleScopedClasses['section-head']} */ ;
+/** @type {__VLS_StyleScopedClasses['eyebrow']} */ ;
+/** @type {__VLS_StyleScopedClasses['section-title']} */ ;
+/** @type {__VLS_StyleScopedClasses['section-copy']} */ ;
+/** @type {__VLS_StyleScopedClasses['chip-row']} */ ;
+/** @type {__VLS_StyleScopedClasses['filter-pill']} */ ;
+/** @type {__VLS_StyleScopedClasses['is-active']} */ ;
+/** @type {__VLS_StyleScopedClasses['ui-panel']} */ ;
+/** @type {__VLS_StyleScopedClasses['section-head']} */ ;
+/** @type {__VLS_StyleScopedClasses['eyebrow']} */ ;
+/** @type {__VLS_StyleScopedClasses['section-title']} */ ;
+/** @type {__VLS_StyleScopedClasses['section-copy']} */ ;
+/** @type {__VLS_StyleScopedClasses['list-stack']} */ ;
+/** @type {__VLS_StyleScopedClasses['list-card']} */ ;
+/** @type {__VLS_StyleScopedClasses['card-title']} */ ;
+/** @type {__VLS_StyleScopedClasses['result-meta']} */ ;
 var __VLS_dollars;
 const __VLS_self = (await import('vue')).defineComponent({
     setup() {

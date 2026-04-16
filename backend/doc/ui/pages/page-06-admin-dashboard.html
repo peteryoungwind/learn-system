@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>06 管理员端首页</title>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <main class="page-shell admin-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark">LV</div>
+          <div class="brand-copy">
+            <small>Screen F</small>
+            <strong>管理员端首页</strong>
+          </div>
+        </div>
+        <nav class="subnav admin-nav">
+          <a class="nav-link" href="../index.html">原型目录</a>
+          <a class="nav-link active" href="./page-06-admin-dashboard.html">后台首页</a>
+          <a class="nav-link" href="./page-07-admin-taxonomy.html">分类专辑</a>
+          <a class="nav-link" href="./page-08-admin-materials.html">资料管理</a>
+          <a class="nav-link" href="./page-10-admin-users.html">用户权限</a>
+        </nav>
+      </header>
+
+      <div class="switch-banner">
+        <div class="button-row">
+          <span class="system-pill admin">当前：管理员端</span>
+          <span class="badge info">仅管理员可访问</span>
+        </div>
+        <a class="ghost-button" href="./page-02-user-home.html">切换到用户端视角</a>
+      </div>
+
+      <section class="hero" style="margin-top: 24px;">
+        <div class="eyebrow">Admin Workspace</div>
+        <h1>把结构治理、内容维护和权限配置放进同一套后台工作台。</h1>
+        <p>管理员端强调效率和清晰反馈，采用更高密度的信息布局，但仍保持 Apple 风格的浅色、透明、克制层次。</p>
+      </section>
+
+      <section class="metric-grid" style="margin-top: 24px;">
+        <article class="metric">
+          <span class="meta-label">分类总数</span>
+          <strong>16</strong>
+          <p class="muted" style="margin-top: 8px;">启用 14 个，停用 2 个</p>
+        </article>
+        <article class="metric">
+          <span class="meta-label">专辑总数</span>
+          <strong>42</strong>
+          <p class="muted" style="margin-top: 8px;">本周新增 3 个</p>
+        </article>
+        <article class="metric">
+          <span class="meta-label">资料总数</span>
+          <strong>684</strong>
+          <p class="muted" style="margin-top: 8px;">异常 6 份待处理</p>
+        </article>
+        <article class="metric">
+          <span class="meta-label">用户总数</span>
+          <strong>9</strong>
+          <p class="muted" style="margin-top: 8px;">停用 1 个</p>
+        </article>
+      </section>
+
+      <div class="split" style="margin-top: 24px;">
+        <article class="panel">
+          <div class="section-head">
+            <div>
+              <div class="section-label">Quick Modules</div>
+              <h2>核心管理入口</h2>
+            </div>
+          </div>
+          <div class="triple">
+            <a class="page-link-card" href="./page-07-admin-taxonomy.html">
+              <h3>分类 / 专辑管理</h3>
+              <p class="muted">先搭结构，再让资料与权限挂上去。</p>
+            </a>
+            <a class="page-link-card" href="./page-08-admin-materials.html">
+              <h3>资料管理</h3>
+              <p class="muted">编辑元数据、处理异常、发布资料。</p>
+            </a>
+            <a class="page-link-card" href="./page-09-admin-import.html">
+              <h3>导入任务</h3>
+              <p class="muted">查看任务结果、重试失败、跟踪来源。</p>
+            </a>
+          </div>
+        </article>
+        <article class="panel">
+          <div class="section-head">
+            <div>
+              <div class="section-label">First Run</div>
+              <h2>首次使用建议路径</h2>
+            </div>
+          </div>
+          <div class="timeline">
+            <div class="timeline-item">
+              <strong>1. 建立分类与专辑</strong>
+              <p class="muted">先定义资料结构，再开始导入，避免后续二次归档。</p>
+            </div>
+            <div class="timeline-item">
+              <strong>2. 导入并校验资料</strong>
+              <p class="muted">确保 object key 可访问，再发布资料供普通用户使用。</p>
+            </div>
+            <div class="timeline-item">
+              <strong>3. 创建成员并分配分类权限</strong>
+              <p class="muted">权限粒度固定为分类级，普通用户只看到被授权内容。</p>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="split" style="margin-top: 24px;">
+        <article class="panel">
+          <div class="section-head">
+            <div>
+              <div class="section-label">Recent Tasks</div>
+              <h2>最近导入与异常</h2>
+            </div>
+          </div>
+          <div class="list">
+            <div class="list-item">
+              <strong>OSS 对象导入任务 #20260416-01</strong>
+              <p class="muted">成功 38 条 · 失败 2 条 · 失败原因：object key 无效</p>
+            </div>
+            <div class="list-item">
+              <strong>批量模板导入任务 #20260415-04</strong>
+              <p class="muted">成功 21 条 · 全部以草稿状态入库待校验</p>
+            </div>
+          </div>
+        </article>
+        <article class="panel">
+          <div class="section-head">
+            <div>
+              <div class="section-label">System State</div>
+              <h2>后台关键状态</h2>
+            </div>
+          </div>
+          <div class="stack-sm">
+            <div class="error-state">
+              <span class="badge danger">后台摘要加载失败</span>
+              <p class="muted" style="margin-top: 8px;">错误提示不遮挡整个工作台，核心导航仍可用。</p>
+            </div>
+            <div class="loading-state">
+              <span class="badge info">加载中</span>
+              <div class="loading-bar" style="margin-top: 12px;"></div>
+              <div class="loading-bar"></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </main>
+  </body>
+</html>

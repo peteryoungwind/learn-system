@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>08 资料管理页</title>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <main class="page-shell admin-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark">LV</div>
+          <div class="brand-copy">
+            <small>Screen H</small>
+            <strong>资料管理页</strong>
+          </div>
+        </div>
+        <nav class="subnav admin-nav">
+          <a class="nav-link" href="../index.html">原型目录</a>
+          <a class="nav-link" href="./page-06-admin-dashboard.html">后台首页</a>
+          <a class="nav-link active" href="./page-08-admin-materials.html">资料管理</a>
+          <a class="nav-link" href="./page-09-admin-import.html">导入任务</a>
+        </nav>
+      </header>
+
+      <section class="panel">
+        <div class="toolbar">
+          <div>
+            <div class="section-label">Material Inventory</div>
+            <h1>资料表格与详情编辑</h1>
+          </div>
+          <div class="button-row">
+            <button class="primary-button" type="button">新建资料</button>
+            <a class="secondary-button" href="./page-09-admin-import.html">进入导入任务</a>
+          </div>
+        </div>
+        <div class="filter-row" style="margin: 18px 0;">
+          <span class="filter-pill active">全部状态</span>
+          <span class="filter-pill">草稿</span>
+          <span class="filter-pill">已发布</span>
+          <span class="filter-pill">异常</span>
+          <span class="filter-pill">推荐系统</span>
+          <span class="filter-pill">未归档资料</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>标题</th>
+                <th>分类 / 专辑</th>
+                <th>文件类型</th>
+                <th>状态</th>
+                <th>对象存储</th>
+                <th>最后更新</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>LTR 与 GBDT 混排策略实践</td>
+                <td>推荐系统 / 排序与重排</td>
+                <td>PDF</td>
+                <td><span class="badge success">已发布</span></td>
+                <td>OSS / docs/rank/ltr.pdf</td>
+                <td>今天 10:42</td>
+              </tr>
+              <tr>
+                <td>重排模型线上特征治理</td>
+                <td>推荐系统 / 排序与重排</td>
+                <td>视频</td>
+                <td><span class="badge neutral">草稿</span></td>
+                <td>七牛云 / video/rerank.mp4</td>
+                <td>昨天 18:03</td>
+              </tr>
+              <tr>
+                <td>案例库导入失败样本</td>
+                <td>案例拆解 / 未归档</td>
+                <td>PDF</td>
+                <td><span class="badge danger">异常</span></td>
+                <td>OSS / broken/sample.pdf</td>
+                <td>4 月 15 日</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="split" style="margin-top: 24px;">
+        <section class="modal-card">
+          <div class="section-head">
+            <div>
+              <div class="section-label">Metadata Editor</div>
+              <h2>资料编辑区</h2>
+            </div>
+          </div>
+          <form class="form-grid">
+            <label class="field">
+              <span>标题</span>
+              <input class="text-input" type="text" value="LTR 与 GBDT 混排策略实践" />
+            </label>
+            <label class="field">
+              <span>作者</span>
+              <input class="text-input" type="text" value="王自学" />
+            </label>
+            <label class="field">
+              <span>文件类型</span>
+              <select class="select-input"><option>PDF</option></select>
+            </label>
+            <label class="field">
+              <span>发布状态</span>
+              <select class="select-input"><option>已发布</option></select>
+            </label>
+            <label class="field full">
+              <span>Object Key</span>
+              <input class="text-input" type="text" value="docs/rank/ltr.pdf" />
+              <span class="hint">保存前需校验 object key 的真实可访问性</span>
+            </label>
+          </form>
+          <div class="button-row" style="margin-top: 18px;">
+            <button class="primary-button" type="button">保存资料</button>
+            <button class="ghost-button" type="button">停用资料</button>
+            <button class="ghost-button" type="button">删除资料</button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="section-head">
+            <div>
+              <div class="section-label">Operational States</div>
+              <h2>异常与空状态</h2>
+            </div>
+          </div>
+          <div class="stack-sm">
+            <div class="error-state">
+              <span class="badge danger">资源异常</span>
+              <p class="muted" style="margin-top: 8px;">object key 无效时，列表中直接显式标红，并在编辑区引导修复。</p>
+            </div>
+            <div class="empty-state">
+              <span class="badge neutral">暂无资料</span>
+              <p class="muted" style="margin-top: 8px;">首次使用建议优先导入资料，而不是面对空表格。</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

@@ -29,6 +29,10 @@ export const adminMaterialApi = {
   remove: (id: number) => api.delete(`/api/admin/materials/${id}`),
 }
 
+export const adminImportApi = {
+  list: () => api.get('/api/admin/import-tasks'),
+}
+
 export const userLearningApi = {
   categories: () => api.get('/api/me/categories'),
   albums: (categoryId?: number) => api.get('/api/me/albums', { params: { categoryId } }),
